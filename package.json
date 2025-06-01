@@ -1,0 +1,55 @@
+{
+  "name": "ocean-guardian",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "simple-git-hooks": {
+    "commit-msg": "commitlint --edit $1"
+  },
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "generate-pwa-assets": "pwa-assets-generator --preset minimal public/logo.svg",
+    "prepare": "npx simple-git-hooks",
+    "commit": "cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "firebase": "^10.12.2",
+    "framer-motion": "^11.2.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-loader-spinner": "^6.1.6",
+    "react-router-dom": "^6.23.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vanilla-extract/css": "^1.17.2",
+    "@vanilla-extract/vite-plugin": "^5.0.3",
+    "@vite-pwa/assets-generator": "^0.2.4",
+    "@vitejs/plugin-react": "^4.2.1",
+    "commitizen": "^4.3.1",
+    "commitlint": "^19.8.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "husky": "^9.1.7",
+    "simple-git-hooks": "^2.13.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.0",
+    "vite-plugin-pwa": "^0.20.0",
+    "vite-plugin-svgr": "^4.3.0"
+  }
+}
