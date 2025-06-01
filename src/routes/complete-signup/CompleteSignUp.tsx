@@ -59,8 +59,23 @@ export default function CompleteSignUp() {
   };
 
   const [userForm, setUserForm] = useState(userFormFields);
+
   const handleUserFormChange = (name: string, value: string) => {
-    setUserForm((prev) => ({ ...prev, [name]: value }));
+    const keys = name.split(".");
+
+    setUserForm((prev: any) => {
+      const updated = structuredClone(prev);
+
+      let current = updated;
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (!current[keys[i]]) current[keys[i]] = {};
+        current = current[keys[i]];
+      }
+
+      current[keys[keys.length - 1]] = value;
+
+      return updated;
+    });
   };
 
   if (!uid) return <Navigate to={"/signup"} />;
@@ -81,17 +96,55 @@ export default function CompleteSignUp() {
     if (userType === "pessoa") {
       switch (currentStep) {
         case 2:
-          return <UserStepOne uid={uid} onNext={nextStep} />;
+          return (
+            <UserStepOne
+              uid={uid}
+              onNext={nextStep}
+              onBack={prevStep}
+              form={userForm}
+              onFormChange={handleUserFormChange}
+            />
+          );
         case 3:
-          return <UserStepTwo uid={uid} onNext={nextStep} onBack={prevStep} />;
+          return (
+            <UserStepTwo
+              uid={uid}
+              onNext={nextStep}
+              onBack={prevStep}
+              form={userForm}
+              onFormChange={handleUserFormChange}
+            />
+          );
         case 4:
           return (
-            <UserStepThree uid={uid} onNext={nextStep} onBack={prevStep} />
+            <UserStepThree
+              uid={uid}
+              onNext={nextStep}
+              onBack={prevStep}
+              form={userForm}
+              onFormChange={handleUserFormChange}
+            />
           );
         case 5:
-          return <UserStepFour uid={uid} onNext={nextStep} onBack={prevStep} />;
+          return (
+            <UserStepFour
+              uid={uid}
+              onNext={nextStep}
+              onBack={prevStep}
+              form={userForm}
+              onFormChange={handleUserFormChange}
+            />
+          );
         case 6:
-          return <UserStepFive uid={uid} onNext={nextStep} onBack={prevStep} />;
+          return (
+            <UserStepFive
+              uid={uid}
+              onNext={nextStep}
+              onBack={prevStep}
+              form={userForm}
+              onFormChange={handleUserFormChange}
+            />
+          );
       }
     }
 
