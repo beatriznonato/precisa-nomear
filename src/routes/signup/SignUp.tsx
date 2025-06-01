@@ -130,7 +130,7 @@ export const SignUp = () => {
         <div className={signupArea}>
           <div className={titleContainer}>
             <h1>Cadastro</h1>
-            <p>Para utilizar a ColocaNome, você precisa criar uma conta.</p>
+            <p>Para utilizar a Rede do Bem, você precisa criar uma conta.</p>
           </div>
           <form
             className={formElm}
