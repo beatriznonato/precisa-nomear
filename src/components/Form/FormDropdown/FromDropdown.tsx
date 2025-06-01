@@ -1,3 +1,4 @@
+import { HTMLInputTypeAttribute } from "react";
 import {
   container,
   fieldLabel,
@@ -5,6 +6,7 @@ import {
   inputField,
   fieldError,
 } from "./FormDropdown.css";
+import { generateLabelId } from "../../../utils/generateLabelId";
 
 type Option = {
   label: string;
@@ -21,16 +23,6 @@ type FormDropdownProps = {
   error?: string;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   className?: string;
-};
-
-const generateLabelId = (label: string): string => {
-  const baseId = label
-    .toLowerCase()
-    .replace(/[^a-z\s]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-  const suffix = Math.floor(Math.random() * 10000);
-  return `${baseId}-${suffix}`;
 };
 
 export const FormDropdown = ({

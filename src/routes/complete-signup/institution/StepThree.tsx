@@ -17,7 +17,7 @@ import FormDropdown from "../../../components/Form/FormDropdown/FromDropdown";
 import { formatZip } from "../../../utils/formatZip";
 import { isValidZip } from "../../../utils/isValidZip";
 
-const states = [
+export const states = [
   { label: "AC", value: "AC" },
   { label: "AL", value: "AL" },
   { label: "AP", value: "AP" },

@@ -8,6 +8,7 @@ import {
   inputWrapper,
   inputField,
 } from "./FormField.css";
+import { generateLabelId } from "../../../utils/generateLabelId";
 
 type FormFieldProps = {
   label: string;
@@ -21,16 +22,6 @@ type FormFieldProps = {
   onIconClick?: () => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
-};
-
-const generateLabelId = (label: string): string => {
-  const baseId = label
-    .toLowerCase()
-    .replace(/[^a-z\s]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-  const suffix = Math.floor(Math.random() * 10000);
-  return `${baseId}-${suffix}`;
 };
 
 export const FormField = ({

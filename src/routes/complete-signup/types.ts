@@ -4,6 +4,7 @@ export type UserFormFields = {
   birthDate: string;
   gender: string;
   phoneNumber: string;
+  livesAlone: string;
   livesWith: string;
   disability: string;
   medicalEquipment: string;
@@ -57,6 +58,7 @@ export const userFormFields = {
   birthDate: "",
   gender: "",
   phoneNumber: "",
+  livesAlone: "",
   livesWith: "",
   disability: "",
   medicalEquipment: "",
