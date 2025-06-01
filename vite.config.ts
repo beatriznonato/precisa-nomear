@@ -14,8 +14,8 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
       manifest: {
-        name: "ColocaNome",
-        short_name: "ColocaNome",
+        name: "Rede do Bem",
+        short_name: "Rede do Bem",
         theme_color: "#092147",
         icons: [
           {
