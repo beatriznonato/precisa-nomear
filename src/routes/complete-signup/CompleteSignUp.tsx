@@ -1,3 +1,4 @@
+import { set } from "lodash";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import Icon from "../../components/Icon/Icon";
 import Button from "../../components/Button/Button";
@@ -42,19 +43,9 @@ export default function CompleteSignUp() {
 
   const [institutionForm, setInstitutionForm] = useState(instFormFields);
   const handleInstFormChange = (name: string, value: string) => {
-    const keys = name.split(".");
-
-    setInstitutionForm((prev: any) => {
-      const updated = { ...prev };
-
-      let current = updated;
-      for (let i = 0; i < keys.length - 1; i++) {
-        if (!current[keys[i]]) current[keys[i]] = {};
-        current = current[keys[i]];
-      }
-
-      current[keys[keys.length - 1]] = value;
-
+    setInstitutionForm((prev) => {
+      const updated = structuredClone(prev);
+      set(updated, name, value);
       return updated;
     });
   };
@@ -62,26 +53,17 @@ export default function CompleteSignUp() {
   const [userForm, setUserForm] = useState(userFormFields);
 
   const handleUserFormChange = (name: string, value: string) => {
-    const keys = name.split(".");
-
-    setUserForm((prev: any) => {
+    setUserForm((prev) => {
       const updated = structuredClone(prev);
-
-      let current = updated;
-      for (let i = 0; i < keys.length - 1; i++) {
-        if (!current[keys[i]]) current[keys[i]] = {};
-        current = current[keys[i]];
-      }
-
-      current[keys[keys.length - 1]] = value;
-
+      set(updated, name, value);
       return updated;
     });
   };
 
   if (!uid) return <Navigate to={"/signup"} />;
 
-  const stepsNav = userType === "instituicao" ? [1, 2, 3, 4] : [1, 2, 3, 4, 5, 6, 7];
+  const stepsNav =
+    userType === "instituicao" ? [1, 2, 3, 4] : [1, 2, 3, 4, 5, 6, 7];
   const progressPercent = Math.min(
     ((currentStep - 1 + 0.5) / (stepsNav.length - 1)) * 100,
     100
@@ -150,7 +132,7 @@ export default function CompleteSignUp() {
           return (
             <UserStepSix
               uid={uid}
-              onNext={nextStep}
+              onNext={() => navigate("/signup-success")}
               onBack={prevStep}
               form={userForm}
               onFormChange={handleUserFormChange}
