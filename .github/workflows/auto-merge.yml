@@ -13,8 +13,9 @@ jobs:
       pull-requests: write
     steps:
       - name: Merge pull request
-        uses: peter-evans/merge-pull-request@v3
+        uses: peter-evans/merge-pull-request@v2.10.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: squash
           delete-branch: true
+
