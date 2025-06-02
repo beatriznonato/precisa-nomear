@@ -16,6 +16,7 @@ import { FormStep } from "../types";
 import FormDropdown from "../../../components/Form/FormDropdown/FromDropdown";
 import { formatZip } from "../../../utils/formatZip";
 import { isValidZip } from "../../../utils/isValidZip";
+import { fetchAddressByZip } from "../../../utils/zipSearch";
 
 export const states = [
   { label: "AC", value: "AC" },
@@ -59,7 +60,7 @@ export const StepThree = ({
 
   if (!("cnpj" in form)) return null;
 
-  const handleChange = (
+  const handleChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name } = e.target;
@@ -67,6 +68,25 @@ export const StepThree = ({
 
     if (name === "address.zip") {
       value = formatZip(value);
+      onFormChange(name, value);
+
+      const cleanedZip = value.replace(/\D/g, "");
+
+      if (cleanedZip.length === 8 && isValidZip(cleanedZip)) {
+        const addressData = await fetchAddressByZip(cleanedZip);
+
+        if (addressData) {
+          onFormChange("address.street", addressData.logradouro || "");
+          onFormChange("address.district", addressData.bairro || "");
+          onFormChange("address.city", addressData.localidade || "");
+          onFormChange("address.state", addressData.uf || "");
+          setZipError(undefined);
+        } else {
+          setZipError("CEP não encontrado");
+        }
+      }
+
+      return;
     }
 
     onFormChange(name, value);
@@ -75,14 +95,6 @@ export const StepThree = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    if (!isValidZip(form.address.zip)) {
-      setZipError("CEP inválido");
-      setIsSubmitting(false);
-      return;
-    } else {
-      setZipError(undefined);
-    }
 
     try {
       await setDoc(doc(db, "users", uid), { ...form }, { merge: true });
@@ -96,6 +108,16 @@ export const StepThree = ({
   return (
     <form className={formElm} onSubmit={handleSubmit}>
       <FormHeader headline="Onde fica sua instituição?" />
+
+      <FormField
+        label="CEP"
+        name="address.zip"
+        value={form.address.zip}
+        onChange={handleChange}
+        error={zipError}
+        required
+      />
+
       <fieldset className={fieldset}>
         <FormField
           label="Logradouro"
@@ -150,15 +172,6 @@ export const StepThree = ({
           options={states}
         />
       </fieldset>
-
-      <FormField
-        label="CEP"
-        name="address.zip"
-        value={form.address.zip}
-        onChange={handleChange}
-        error={zipError}
-        required
-      />
 
       <div className={formBtnWrapper}>
         <Button
