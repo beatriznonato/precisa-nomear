@@ -6,8 +6,11 @@ export type UserFormFields = {
   phoneNumber: string;
   livesAlone: string;
   livesWith: string;
+  hasDisability: string;
   disability: string;
-  medicalEquipment: string;
+  needsMedicalEquip: string;
+  medicalEquip: string;
+  takesMedication: string;
   medication: string;
   emergencyContact: {
     name: string;
@@ -52,7 +55,7 @@ export type FormStep = {
   onBack?: () => void;
 };
 
-export const userFormFields = {
+export const userFormFields: UserFormFields = {
   name: "",
   cpf: "",
   birthDate: "",
@@ -60,8 +63,11 @@ export const userFormFields = {
   phoneNumber: "",
   livesAlone: "",
   livesWith: "",
+  hasDisability: "",
   disability: "",
-  medicalEquipment: "",
+  needsMedicalEquip: "",
+  medicalEquip: "",
+  takesMedication: "",
   medication: "",
   emergencyContact: {
     name: "",
@@ -79,7 +85,7 @@ export const userFormFields = {
   },
 };
 
-export const instFormFields = {
+export const instFormFields: InstFormFields = {
   institutionName: "",
   cnpj: "",
   organizationType: "",

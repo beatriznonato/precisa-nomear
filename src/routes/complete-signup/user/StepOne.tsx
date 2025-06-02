@@ -7,7 +7,7 @@ import FormDropdown from "../../../components/Form/FormDropdown/FromDropdown";
 import FormField from "../../../components/Form/FormField/FormField";
 import FormHeader from "../../../components/Form/FormHeader/FormHeader";
 import Loader from "../../../components/Loader/Loader";
-import { formElmBig, formBtnWrapper, loaderContainer } from "../Step.css";
+import { formBtnWrapper, loaderContainer, formElm } from "../Step.css";
 import { formatCPF } from "../../../utils/formatCPF";
 import { isValidCPF } from "../../../utils/isValidCPF";
 import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
@@ -75,7 +75,7 @@ export const StepOne = ({
   };
 
   return (
-    <form className={formElmBig} onSubmit={handleSubmit}>
+    <form className={formElm} onSubmit={handleSubmit}>
       <FormHeader headline="Precisamos conhecer você!" />
       <FormField
         label="Nome Completo"
