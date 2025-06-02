@@ -6,8 +6,11 @@ on:
 
 jobs:
   automerge:
-    # Ensure this job only runs when the event is within a pull request context
-    if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
+    # Ensure this job only runs when the event is within a pull request context and is approved
+    if: >
+      github.event_name == 'pull_request_review' &&
+      github.event.review.state == 'approved' &&
+      github.event.pull_request != null
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -17,5 +20,5 @@ jobs:
         uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          merge-method: squash # ou merge/rebase
+          merge-method: squash # or merge/rebase
           delete-branch: true
