@@ -1,4 +1,4 @@
-name: Auto Merge PR
+name: Auto Merge Approved PR
 
 on:
   pull_request_review:
@@ -6,19 +6,15 @@ on:
 
 jobs:
   automerge:
-    # Ensure this job only runs when the event is within a pull request context and is approved
-    if: >
-      github.event_name == 'pull_request_review' &&
-      github.event.review.state == 'approved' &&
-      github.event.pull_request != null
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write
       contents: write
+      pull-requests: write
     steps:
-      - name: Auto-merge approved PR
-        uses: ahmadnassri/action-dependabot-auto-merge@v2
+      - name: Merge pull request
+        uses: peter-evans/merge-pull-request@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          merge-method: squash # or merge/rebase
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: squash
           delete-branch: true
