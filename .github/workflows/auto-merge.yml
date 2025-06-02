@@ -12,10 +12,19 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+          sudo apt-add-repository https://cli.github.com/packages
+          sudo apt update
+          sudo apt install gh -y
+
       - name: Merge pull request
-        uses: peter-evans/merge-pull-request@v2.10.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          merge-method: squash
-          delete-branch: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge ${{ github.event.pull_request.html_url }} --squash --delete-branch --admin
 
