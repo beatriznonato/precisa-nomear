@@ -11,10 +11,13 @@ import Logo from "../../assets/icons/logo.svg?react";
 import User from "../../assets/icons/user.svg?react";
 import Institution from "../../assets/icons/institution.svg?react";
 import Check from "../../assets/icons/check.svg?react";
+import Alert from "../../assets/icons/alert.svg?react";
 
 export type IconType =
+  | "alert"
   | "arrowLeftSimple"
   | "arrowLeft"
+  | "check"
   | "document"
   | "eyeOpen"
   | "eyeClosed"
@@ -24,8 +27,7 @@ export type IconType =
   | "settings"
   | "logo"
   | "user"
-  | "institution"
-  | "check";
+  | "institution";
 
 type IconProps = {
   type: IconType;
@@ -38,8 +40,10 @@ const icons: Record<
   IconType,
   React.FunctionComponent<React.SVGProps<SVGSVGElement>>
 > = {
+  alert: Alert,
   arrowLeftSimple: ArrowLeftSimple,
   arrowLeft: ArrowLeft,
+  check: Check,
   document: Document,
   eyeOpen: EyeOpen,
   eyeClosed: EyeClosed,
@@ -50,7 +54,6 @@ const icons: Record<
   logo: Logo,
   user: User,
   institution: Institution,
-  check: Check,
 };
 
 const Icon: React.FC<IconProps> = ({

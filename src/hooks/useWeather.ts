@@ -4,6 +4,7 @@ type WeatherData = {
   temp_c: number;
   humidity: number;
   wind_kph: number;
+  iconCode: string;
   condition: { icon: string; text: string };
   location: { name: string; region: string };
   alerts: {
@@ -43,8 +44,10 @@ export function useWeather() {
         temp_c: Math.round(weatherData.main.temp),
         humidity: Math.round(weatherData.main.humidity),
         wind_kph: Math.round(weatherData.wind.speed * 3.6),
+        iconCode: weatherData.weather[0].icon,
         condition: {
-          icon: `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`,
+          icon: "",
+
           text: weatherData.weather[0].description,
         },
         location: {
