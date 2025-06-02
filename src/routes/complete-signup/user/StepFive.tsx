@@ -1,53 +1,100 @@
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../firebase/FirebaseConfig";
 import { useState } from "react";
-import { FormStep } from "../CompleteSignUp";
+import Button from "../../../components/Button/Button";
+import FormHeader from "../../../components/Form/FormHeader/FormHeader";
+import Loader from "../../../components/Loader/Loader";
+import { formElm } from "../CompleteSignUp.css";
+import { formBtnWrapper, loaderContainer } from "../Step.css";
+import { FormStep } from "../types";
+import FormRadio from "../../../components/Form/FormRadio/FormRadio";
+import FormField from "../../../components/Form/FormField/FormField";
 
-export const StepFive = ({ uid, onNext, onBack }: FormStep) => {
-  const [form, setForm] = useState({
-    nome: "",
-    cpf: "",
-    nascimento: "",
-    genero: "",
-    telefone: "",
-  });
+export const StepFive = ({
+  uid,
+  onNext,
+  onBack,
+  form,
+  onFormChange,
+}: FormStep) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (
+  if (!("cpf" in form)) return null;
+  const takesMedication = form.takesMedication || "";
+
+  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    onFormChange(name, value);
+
+    if (name === "takesMedication" && value === "nao") {
+      onFormChange("medication", "");
+    }
+  };
+
+  const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+
+    onFormChange(name, value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       await setDoc(doc(db, "users", uid), { ...form }, { merge: true });
-      onNext(); // vai pro proximo passo
+      onNext();
     } catch (error) {
       console.error("Erro ao salvar dados:", error);
-      alert("Erro ao salvar dados. Tente novamente.");
     }
+    setIsSubmitting(false);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      Step dois do usuario
-      <label>
-        Nome completo
-        <input
-          type="text"
-          name="nome"
-          value={form.nome}
-          onChange={handleChange}
+    <form className={formElm} onSubmit={handleSubmit}>
+      <FormHeader headline="Condições de saúde e mobilidade" />
+      <FormRadio
+        label="Toma medicação contínua?"
+        name="takesMedication"
+        value={takesMedication}
+        options={[
+          { label: "Sim", value: "sim" },
+          { label: "Não", value: "nao" },
+        ]}
+        onChange={handleRadioChange}
+      />
+
+      {takesMedication === "sim" && (
+        <FormField
+          label="Quais?"
+          name="medication"
+          value={form.medication}
+          onChange={handleInputChange}
           required
+          error="Separe os medicamentos com uma vírgula."
         />
-      </label>
-      <button type="button" onClick={onBack}>
-        Voltar
-      </button>
-      <button type="submit">Próximo</button>
+      )}
+
+      <div className={formBtnWrapper}>
+        <Button
+          type="button"
+          variant="transparent"
+          icon="arrowLeft"
+          onClick={onBack}
+        >
+          Voltar
+        </Button>
+        {isSubmitting ? (
+          <div className={loaderContainer}>
+            <Loader />
+          </div>
+        ) : (
+          <Button type="submit">Continuar</Button>
+        )}
+      </div>
     </form>
   );
 };

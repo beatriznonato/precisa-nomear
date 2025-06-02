@@ -23,6 +23,7 @@ import { StepTwo as UserStepTwo } from "./user/StepTwo";
 import { StepThree as UserStepThree } from "./user/StepThree";
 import { StepFour as UserStepFour } from "./user/StepFour";
 import { StepFive as UserStepFive } from "./user/StepFive";
+import { StepSix as UserStepSix } from "./user/StepSix";
 import { StepOne as InstitutionStepOne } from "./institution/StepOne";
 import { StepTwo as InstitutionStepTwo } from "./institution/StepTwo";
 import { StepThree as InstitutionStepThree } from "./institution/StepThree";
@@ -80,7 +81,7 @@ export default function CompleteSignUp() {
 
   if (!uid) return <Navigate to={"/signup"} />;
 
-  const stepsNav = userType === "instituicao" ? [1, 2, 3, 4] : [1, 2, 3, 4, 5];
+  const stepsNav = userType === "instituicao" ? [1, 2, 3, 4] : [1, 2, 3, 4, 5, 6, 7];
   const progressPercent = Math.min(
     ((currentStep - 1 + 0.5) / (stepsNav.length - 1)) * 100,
     100
@@ -138,6 +139,16 @@ export default function CompleteSignUp() {
         case 6:
           return (
             <UserStepFive
+              uid={uid}
+              onNext={nextStep}
+              onBack={prevStep}
+              form={userForm}
+              onFormChange={handleUserFormChange}
+            />
+          );
+        case 7:
+          return (
+            <UserStepSix
               uid={uid}
               onNext={nextStep}
               onBack={prevStep}

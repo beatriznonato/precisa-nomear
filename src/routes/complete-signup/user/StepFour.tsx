@@ -111,7 +111,7 @@ export const StepFour = ({
           value={form.medicalEquip}
           onChange={handleInputChange}
           required
-          error="Separe os medicamentos com uma vírgula."
+          error="Separe os equipamentos com uma vírgula."
         />
       )}
 
