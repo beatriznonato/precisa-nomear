@@ -26,8 +26,6 @@ type UserData = {
   email: string;
 };
 
-// type InputField = {};
-
 export const SignUp = () => {
   const navigate = useNavigate();
 
@@ -69,27 +67,34 @@ export const SignUp = () => {
     // Check email format
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(form.email)) {
+      setIsSubmitting(false);
       newErrors["email"] = "Formato de e-mail inválido.";
     }
 
     // Check password requirements
     if (form.password.length < 8 && form.password !== "") {
+      setIsSubmitting(false);
       newErrors["password"] = "A senha deve ter pelo menos 8 caracteres.";
     } else if (!/[a-z]/.test(form.password)) {
+      setIsSubmitting(false);
       newErrors["password"] =
         "A senha deve conter pelo menos uma letra minúscula.";
     } else if (!/[A-Z]/.test(form.password)) {
+      setIsSubmitting(false);
       newErrors["password"] =
         "A senha deve conter pelo menos uma letra maiúscula.";
     } else if (!/\d/.test(form.password)) {
+      setIsSubmitting(false);
       newErrors["password"] = "A senha deve conter pelo menos um número.";
     } else if (!/[@$!%*?&]/.test(form.password)) {
+      setIsSubmitting(false);
       newErrors["password"] =
         "A senha deve conter pelo menos um caractere especial.";
     }
 
     // Check passwords match
     if (form.password !== form.comfirmPassword) {
+      setIsSubmitting(false);
       newErrors["confirmPassword"] = "As senhas não coincidem.";
     }
 
