@@ -52,6 +52,7 @@ export const fieldset = style({
   justifyContent: "center",
   gap: 20,
   padding: 0,
+  margin: 0,
 });
 
 export const smallField = style({

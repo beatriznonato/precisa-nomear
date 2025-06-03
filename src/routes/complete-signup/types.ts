@@ -1,4 +1,5 @@
 export type UserFormFields = {
+  email: string;
   name: string;
   cpf: string;
   birthDate: string;
@@ -56,6 +57,7 @@ export type FormStep = {
 };
 
 export const userFormFields: UserFormFields = {
+  email: "",
   name: "",
   cpf: "",
   birthDate: "",

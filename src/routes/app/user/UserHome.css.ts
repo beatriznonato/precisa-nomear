@@ -30,6 +30,7 @@ export const header = style({
   width: "100%",
   display: "flex",
   justifyContent: "space-between",
+  minHeight: 45,
 });
 
 export const userNav = style({
@@ -75,12 +76,12 @@ export const profilePhoto = style({
   width: 34,
   height: 34,
   borderRadius: "50%",
-  backgroundColor: themeVars.color.primary,
 });
 
 export const weatherIcon = style({
   maxWidth: 400,
   marginBottom: 22,
+  marginTop: 50,
   "@media": {
     "(max-width: 700px)": {
       maxWidth: 300,

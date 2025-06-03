@@ -132,7 +132,7 @@ export const StepOne = ({
           Voltar
         </Button>
         {isSubmitting ? (
-          <div className={loaderContainer}>
+          <div className={loaderContainer} style={{}}>
             <Loader />
           </div>
         ) : (
