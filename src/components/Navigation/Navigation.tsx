@@ -24,9 +24,10 @@ export type Tab = {
 
 type SidebarProps = {
   tabs: Tab[];
+  className?: string;
 };
 
-export const Navigation = ({ tabs }: SidebarProps) => {
+export const Navigation = ({ tabs, className }: SidebarProps) => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -44,7 +45,7 @@ export const Navigation = ({ tabs }: SidebarProps) => {
   };
 
   return (
-    <nav className={navContaniner}>
+    <nav className={`${navContaniner} ${className}`}>
       <Icon type="logo" className={navLogo} />
       <ul className={navUl}>
         <p className={navSubtitle}>Geral</p>
