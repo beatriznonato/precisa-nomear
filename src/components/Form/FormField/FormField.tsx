@@ -22,6 +22,7 @@ type FormFieldProps = {
   onIconClick?: () => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  autoComplete?: string;
 };
 
 export const FormField = ({
@@ -36,6 +37,7 @@ export const FormField = ({
   onChange,
   required = true,
   className,
+  autoComplete,
 }: FormFieldProps) => {
   const id = generateLabelId(label);
 
@@ -54,6 +56,7 @@ export const FormField = ({
           onChange={onChange}
           required={required}
           value={value}
+          autoComplete={autoComplete}
         />
         {icon && (
           <Icon className={inputIcon} type={icon} onClick={onIconClick} />

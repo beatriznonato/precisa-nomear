@@ -26,6 +26,7 @@ type SidebarProps = {
   tabs: Tab[];
   className: string;
 };
+
 export const Navigation = ({ tabs, className }: SidebarProps) => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const navigate = useNavigate();
