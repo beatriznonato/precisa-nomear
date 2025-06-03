@@ -6,6 +6,7 @@ export const button = style({
   borderRadius: 10,
   transition: "ease-in-out 0.1s",
   border: "solid 2px",
+  cursor: "pointer",
   selectors: {
     "&:disabled, &:disabled:hover": {
       backgroundColor: themeVars.color.background1,
@@ -36,6 +37,17 @@ export const buttonTransparent = style({
   selectors: {
     "&:hover": {
       borderColor: themeVars.color.background1,
+      backgroundColor: themeVars.color.background1,
+    },
+  },
+});
+
+export const buttonOutline = style({
+  borderColor: themeVars.color.primary,
+  backgroundColor: themeVars.color.white,
+  color: themeVars.color.primary,
+  selectors: {
+    "&:hover": {
       backgroundColor: themeVars.color.background1,
     },
   },

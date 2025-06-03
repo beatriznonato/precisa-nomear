@@ -7,6 +7,7 @@ import {
   buttonTransparent,
   buttonDefault,
   buttonCircle,
+  buttonOutline,
 } from "./Button.css";
 import Icon, { IconType } from "../Icon/Icon";
 
@@ -14,7 +15,7 @@ type ButtonProps = PropsWithChildren<
   ButtonHTMLAttributes<HTMLButtonElement>
 > & {
   onClick?: () => void;
-  variant?: "default" | "transparent" | "circle";
+  variant?: "default" | "transparent" | "outline" | "circle";
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
   icon?: IconType;
   className?: string;
@@ -34,6 +35,8 @@ const Button = ({
       ? buttonTransparent
       : variant === "circle"
       ? buttonCircle
+      : variant === "outline"
+      ? buttonOutline
       : buttonDefault;
 
   return (
