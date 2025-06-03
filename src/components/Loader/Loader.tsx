@@ -2,10 +2,14 @@
 import { ThreeDots } from "react-loader-spinner";
 import { themeVars } from "../../theme.css";
 
-const Loader = () => {
+type LoaderProps = {
+  width?: string;
+};
+
+const Loader = ({ width }: LoaderProps) => {
   return (
     <ThreeDots
-      width="50"
+      width={width ? width : "50"}
       color={themeVars.color.primary}
       radius="9"
       ariaLabel="three-dots-loading"
