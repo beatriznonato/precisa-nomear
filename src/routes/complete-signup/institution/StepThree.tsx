@@ -83,7 +83,17 @@ export const StepThree = ({
           setZipError(undefined);
         } else {
           setZipError("CEP não encontrado");
+          onFormChange("address.street", "");
+          onFormChange("address.district", "");
+          onFormChange("address.city", "");
+          onFormChange("address.state", "");
         }
+      } else {
+        setZipError("CEP inválido");
+        onFormChange("address.street", "");
+        onFormChange("address.district", "");
+        onFormChange("address.city", "");
+        onFormChange("address.state", "");
       }
 
       return;
@@ -94,6 +104,13 @@ export const StepThree = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const cleanedZip = form.address.zip.replace(/\D/g, "");
+    if (!isValidZip(cleanedZip) || zipError) {
+      setZipError("Informe um CEP válido antes de continuar.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -102,11 +119,12 @@ export const StepThree = ({
     } catch (error) {
       console.error("Erro ao salvar dados:", error);
     }
+
     setIsSubmitting(false);
   };
 
   return (
-    <form className={formElm} onSubmit={handleSubmit}>
+    <form className={formElm} onSubmit={handleSubmit} autoComplete="off">
       <FormHeader headline="Onde fica sua instituição?" />
 
       <FormField
@@ -116,6 +134,7 @@ export const StepThree = ({
         onChange={handleChange}
         error={zipError}
         required
+        autoComplete="off"
       />
 
       <fieldset className={fieldset}>
@@ -125,6 +144,7 @@ export const StepThree = ({
           value={form.address.street}
           onChange={handleChange}
           required
+          autoComplete="off"
         />
         <FormField
           label="Número"
@@ -134,6 +154,7 @@ export const StepThree = ({
           onChange={handleChange}
           required
           className={smallField}
+          autoComplete="off"
         />
       </fieldset>
 
@@ -143,6 +164,7 @@ export const StepThree = ({
         value={form.address.additionalAddressInfo}
         onChange={handleChange}
         required={false}
+        autoComplete="off"
       />
 
       <FormField
@@ -151,6 +173,7 @@ export const StepThree = ({
         value={form.address.district}
         onChange={handleChange}
         required
+        autoComplete="off"
       />
 
       <fieldset className={fieldset}>
@@ -160,6 +183,7 @@ export const StepThree = ({
           value={form.address.city}
           onChange={handleChange}
           required
+          autoComplete="off"
         />
         <FormDropdown
           label="Estado"

@@ -28,6 +28,7 @@ export const StepTwo = ({
 }: FormStep) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [zipError, setZipError] = useState<string | undefined>(undefined);
+  const [isZipValid, setIsZipValid] = useState(false);
 
   if (!("cpf" in form)) return null;
 
@@ -52,9 +53,17 @@ export const StepTwo = ({
           onFormChange("address.city", addressData.localidade || "");
           onFormChange("address.state", addressData.uf || "");
           setZipError(undefined);
+          setIsZipValid(true);
         } else {
+          onFormChange("address.street", "");
+          onFormChange("address.district", "");
+          onFormChange("address.city", "");
+          onFormChange("address.state", "");
           setZipError("CEP não encontrado");
+          setIsZipValid(false);
         }
+      } else {
+        setIsZipValid(false);
       }
 
       return;
@@ -67,17 +76,25 @@ export const StepTwo = ({
     e.preventDefault();
     setIsSubmitting(true);
 
+    const cleanedZip = form.address.zip.replace(/\D/g, "");
+    if (!isZipValid || !isValidZip(cleanedZip)) {
+      setZipError("Informe um CEP válido antes de continuar.");
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       await setDoc(doc(db, "users", uid), { ...form }, { merge: true });
       onNext();
     } catch (error) {
       console.error("Erro ao salvar dados:", error);
     }
+
     setIsSubmitting(false);
   };
 
   return (
-    <form className={formElm} onSubmit={handleSubmit}>
+    <form className={formElm} onSubmit={handleSubmit} autoComplete="off">
       <FormHeader headline="Onde você mora?" />
       <FormField
         label="CEP"
@@ -86,6 +103,7 @@ export const StepTwo = ({
         onChange={handleChange}
         error={zipError}
         required
+        autoComplete="off"
       />
       <fieldset className={fieldset}>
         <FormField
@@ -94,6 +112,7 @@ export const StepTwo = ({
           value={form.address.street}
           onChange={handleChange}
           required
+          autoComplete="off"
         />
         <FormField
           label="Número"
@@ -103,6 +122,7 @@ export const StepTwo = ({
           onChange={handleChange}
           required
           className={smallField}
+          autoComplete="off"
         />
       </fieldset>
 
@@ -112,6 +132,7 @@ export const StepTwo = ({
         value={form.address.additionalAddressInfo}
         onChange={handleChange}
         required={false}
+        autoComplete="off"
       />
 
       <FormField
@@ -120,6 +141,7 @@ export const StepTwo = ({
         value={form.address.district}
         onChange={handleChange}
         required
+        autoComplete="off"
       />
 
       <fieldset className={fieldset}>
@@ -129,6 +151,7 @@ export const StepTwo = ({
           value={form.address.city}
           onChange={handleChange}
           required
+          autoComplete="off"
         />
         <FormDropdown
           label="Estado"
