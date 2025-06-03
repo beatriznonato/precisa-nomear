@@ -4,10 +4,11 @@ import { link } from "./Link.css";
 
 type LinkProps = PropsWithChildren & {
   to: To;
+  className?: string;
 };
-export const Link = ({ to, children }: LinkProps) => {
+export const Link = ({ to, className, children }: LinkProps) => {
   return (
-    <ReactLink className={link} to={to}>
+    <ReactLink className={`${link} ${className}`} to={to}>
       {children}
     </ReactLink>
   );
