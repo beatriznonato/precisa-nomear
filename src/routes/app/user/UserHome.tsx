@@ -37,6 +37,7 @@ import {
   alertContent,
   alertPlaceholder,
 } from "./UserHome.css";
+import ProfilePhoto from "../../../assets/images/profile-photo.png";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase/FirebaseConfig";
@@ -113,7 +114,9 @@ export const UserHome = () => {
                 type="settings"
                 onClick={() => navigate("/configuracoes")}
               />
-              <div className={profilePhoto}></div>
+              <div className={profilePhoto}>
+                <img style={{ width: "100%" }} src={ProfilePhoto} alt="" />
+              </div>
             </nav>
           </header>
           <LoadingScreen />
@@ -137,7 +140,9 @@ export const UserHome = () => {
                 type="settings"
                 onClick={() => navigate("/configuracoes")}
               />
-              <div className={profilePhoto}></div>
+              <div className={profilePhoto}>
+                <img style={{ width: "100%" }} src={ProfilePhoto} alt="" />
+              </div>
             </nav>
           </header>
           <FailureScreen text="Não foi possível obter os dados." />
@@ -173,7 +178,9 @@ export const UserHome = () => {
               type="settings"
               onClick={() => navigate("/configuracoes")}
             />
-            <div className={profilePhoto}></div>
+            <div className={profilePhoto}>
+              <img style={{ width: "100%" }} src={ProfilePhoto} alt="" />
+            </div>
           </nav>
         </header>
         <div className={alignCenter}>

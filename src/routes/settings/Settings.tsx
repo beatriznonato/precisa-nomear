@@ -1,5 +1,7 @@
+import UserSettings from "./user/UserSettings";
+
 export const Settings = () => {
-  return <></>;
+  return <UserSettings />;
 };
 
 export default Settings;

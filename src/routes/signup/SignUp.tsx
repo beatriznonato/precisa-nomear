@@ -22,10 +22,6 @@ import {
 import { Link } from "../../components/Link/Link";
 import Loader from "../../components/Loader/Loader";
 
-type UserData = {
-  email: string;
-};
-
 export const SignUp = () => {
   const navigate = useNavigate();
 
@@ -39,7 +35,7 @@ export const SignUp = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
-    comfirmPassword: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,12 +45,8 @@ export const SignUp = () => {
     });
   };
 
-  const createUser = async (uid: string) => {
-    const userData: UserData = {
-      email: form.email,
-    };
-
-    await setDoc(doc(db, "users", uid), { userData });
+  const createUser = async (uid: string, email: string) => {
+    await setDoc(doc(db, "users", uid), { email: email });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -93,7 +85,7 @@ export const SignUp = () => {
     }
 
     // Check passwords match
-    if (form.password !== form.comfirmPassword) {
+    if (form.password !== form.confirmPassword) {
       setIsSubmitting(false);
       newErrors["confirmPassword"] = "As senhas não coincidem.";
     }
@@ -109,7 +101,7 @@ export const SignUp = () => {
         form.email,
         form.password
       );
-      await createUser(userCredential.user.uid);
+      await createUser(userCredential.user.uid, form.email);
       navigate(`/completar-cadastro?uid=${userCredential.user.uid}`);
     } catch (error) {
       const errorMessage = (error as Error).message;
@@ -163,13 +155,13 @@ export const SignUp = () => {
             />
             <FormField
               label="Comfirmar Senha"
-              name="comfirmPassword"
+              name="confirmPassword"
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Senha forte"
               icon={showConfirmPassword ? "eyeClosed" : "eyeOpen"}
               onIconClick={() => setShowConfirmPassword(!showConfirmPassword)}
               onChange={handleChange}
-              error={errors["comfirmPassword"]}
+              error={errors["confirmPassword"]}
             />
             <p className={loginError}>{generalError}</p>
             {isSubmitting ? (

@@ -17,7 +17,7 @@ import {
   card,
 } from "./CompleteSignUp.css";
 import { selected } from "../../components/Card/Card.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import { StepOne as UserStepOne } from "./user/StepOne";
 import { StepTwo as UserStepTwo } from "./user/StepTwo";
@@ -30,6 +30,8 @@ import { StepTwo as InstitutionStepTwo } from "./institution/StepTwo";
 import { StepThree as InstitutionStepThree } from "./institution/StepThree";
 import FormHeader from "../../components/Form/FormHeader/FormHeader";
 import { instFormFields, userFormFields } from "./types";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/FirebaseConfig";
 
 export default function CompleteSignUp() {
   const [searchParams] = useSearchParams();
@@ -40,6 +42,21 @@ export default function CompleteSignUp() {
   const [userType, setUserType] = useState<"pessoa" | "instituicao" | null>(
     null
   );
+
+  useEffect(() => {
+    if (!uid) return;
+
+    const fetchUserData = async () => {
+      const userRef = doc(db, "users", uid);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        setUserForm((prev) => ({ ...prev, email: data.email || "" }));
+      }
+    };
+
+    fetchUserData();
+  }, [uid]);
 
   const [institutionForm, setInstitutionForm] = useState(instFormFields);
   const handleInstFormChange = (name: string, value: string) => {
