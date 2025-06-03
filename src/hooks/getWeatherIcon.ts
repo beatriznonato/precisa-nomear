@@ -1,5 +1,6 @@
 export type WeatherIcon = {
-  clear: string;
+  clearDay: string;
+  clearNight: string;
   cloudy: string;
   cloudyDay: string;
   cloudyNight: string;
@@ -18,7 +19,9 @@ export function getWeatherIcon(
   const desc = description.toLowerCase();
   const isDay = iconCode.includes("d");
 
-  if (desc.includes("clear")) return icon.clear;
+  if (desc.includes("clear")) {
+    return isDay ? icon.clearDay : icon.clearNight;
+  }
 
   if (desc.includes("few clouds") || desc.includes("scattered clouds")) {
     return isDay ? icon.cloudyDay : icon.cloudyNight;
