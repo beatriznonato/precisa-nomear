@@ -14,10 +14,9 @@ import {
 } from "../Step.css";
 import { FormStep } from "../types";
 import Button from "../../../components/Button/Button";
-import { formatZip } from "../../../utils/formatZip";
 import { isValidZip } from "../../../utils/isValidZip";
 import { states } from "../institution/StepThree";
-import { fetchAddressByZip } from "../../../utils/zipSearch";
+import { autoFillAddressFromZip } from "../../../utils/autoFillAddressFromZip";
 
 export const StepTwo = ({
   uid,
@@ -35,37 +34,15 @@ export const StepTwo = ({
   const handleChange = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name } = e.target;
-    let { value } = e.target;
+    const { name, value } = e.target;
 
     if (name === "address.zip") {
-      value = formatZip(value);
-      onFormChange(name, value);
-
-      const cleanedZip = value.replace(/\D/g, "");
-
-      if (cleanedZip.length === 8 && isValidZip(cleanedZip)) {
-        const addressData = await fetchAddressByZip(cleanedZip);
-
-        if (addressData) {
-          onFormChange("address.street", addressData.logradouro || "");
-          onFormChange("address.district", addressData.bairro || "");
-          onFormChange("address.city", addressData.localidade || "");
-          onFormChange("address.state", addressData.uf || "");
-          setZipError(undefined);
-          setIsZipValid(true);
-        } else {
-          onFormChange("address.street", "");
-          onFormChange("address.district", "");
-          onFormChange("address.city", "");
-          onFormChange("address.state", "");
-          setZipError("CEP não encontrado");
-          setIsZipValid(false);
-        }
-      } else {
-        setIsZipValid(false);
-      }
-
+      await autoFillAddressFromZip(
+        value,
+        onFormChange,
+        setZipError,
+        setIsZipValid
+      );
       return;
     }
 
