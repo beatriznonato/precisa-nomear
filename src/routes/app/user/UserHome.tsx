@@ -1,7 +1,8 @@
 import { getWeatherIcon } from "../../../hooks/getWeatherIcon";
 import { useWeather } from "../../../hooks/useWeather";
 import Navigation, { Tab } from "../../../components/Navigation/Navigation";
-import Clear from "../../../assets/images/sunny.png";
+import ClearDay from "../../../assets/images/clear_day.png";
+import ClearNight from "../../../assets/images/clear_night.png";
 import Cloudy from "../../../assets/images/cloudy.png";
 import CloudyDay from "../../../assets/images/day_cloudy.png";
 import CloudyNight from "../../../assets/images/night_cloudy.png";
@@ -9,7 +10,7 @@ import Rain from "../../../assets/images/rainy.png";
 import Thunder from "../../../assets/images/thunderstorm.png";
 import Snow from "../../../assets/images/snowy.png";
 import Mist from "../../../assets/images/windy.png";
-import Default from "../../../assets/images/sunny.png";
+import Default from "../../../assets/images/clear_day.png";
 import { WeatherIcon } from "../../../hooks/getWeatherIcon";
 import Icon from "../../../components/Icon/Icon";
 import {
@@ -45,7 +46,8 @@ import LoadingScreen from "../../../components/LoadingScreen/LoadingScreen";
 import FailureScreen from "../../../components/FailureScreen/FailureScreen";
 
 const weatherIcons: WeatherIcon = {
-  clear: Clear,
+  clearDay: ClearDay,
+  clearNight: ClearNight,
   cloudy: Cloudy,
   cloudyDay: CloudyDay,
   cloudyNight: CloudyNight,
