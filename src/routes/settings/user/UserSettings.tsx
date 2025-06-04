@@ -86,7 +86,6 @@ export const UserSettings = () => {
       userData.address.state,
     ];
 
-    // Verifica condicionalmente campos de saúde
     if (userData.hasDisability === "sim" && !userData.disability) {
       return false;
     }
@@ -99,7 +98,7 @@ export const UserSettings = () => {
       return false;
     }
 
-    // if (isZipValid) return false;
+    if (!isZipValid) return false;
 
     return requiredFields.every((field) => field.trim() !== "");
   };
@@ -185,23 +184,6 @@ export const UserSettings = () => {
     setIsSubmitting(false);
   };
 
-  // const handleChange = (
-  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  // ) => {
-  //   const { name } = e.target;
-  //   let { value } = e.target;
-
-  //   if (name === "cpf") {
-  //     value = formatCPF(value);
-  //   }
-
-  //   if (name === "phoneNumber") {
-  //     value = formatPhoneNumber(value);
-  //   }
-
-  //   setUserData({ ...userData, [name]: value });
-  // };
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -216,11 +198,9 @@ export const UserSettings = () => {
       value = formatPhoneNumber(value);
     }
 
-    // Atualiza campos aninhados no endereço
     if (name.startsWith("address.")) {
       const addressField = name.split(".")[1];
 
-      // Atualiza userData.address[addressField]
       setUserData((prev) => ({
         ...prev,
         address: {
@@ -229,7 +209,6 @@ export const UserSettings = () => {
         },
       }));
 
-      // Se for campo zip, chama autoFillAddressFromZip para atualizar endereço
       if (addressField === "zip") {
         autoFillAddressFromZip(
           value,
@@ -247,10 +226,9 @@ export const UserSettings = () => {
         );
       }
 
-      return; // evita duplicar setUserData
+      return;
     }
 
-    // Caso geral para campos fora do endereço
     setUserData({ ...userData, [name]: value });
   };
 
