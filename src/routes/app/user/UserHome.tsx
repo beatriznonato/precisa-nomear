@@ -21,11 +21,6 @@ import {
   userLocation,
   weatherDetails,
   separator,
-  alertContainer,
-  alertHeader,
-  alertTitle,
-  alertIcon,
-  alertValidation,
   userNav,
   upperNav,
   profilePhoto,
@@ -34,7 +29,6 @@ import {
   contentWrapper,
   weatherItem,
   alignCenter,
-  alertContent,
   alertPlaceholder,
 } from "./UserHome.css";
 import ProfilePhoto from "../../../assets/images/profile-photo.png";
@@ -45,6 +39,7 @@ import { useAuth } from "../../../firebase/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../../../components/LoadingScreen/LoadingScreen";
 import FailureScreen from "../../../components/FailureScreen/FailureScreen";
+import Alert from "../../../components/Alert/Alert";
 
 const weatherIcons: WeatherIcon = {
   clearDay: ClearDay,
@@ -210,17 +205,13 @@ export const UserHome = () => {
           </div>
         </div>
         {weather.alerts?.alert?.length > 0 ? (
-          <div className={alertContainer}>
-            <div className={alertHeader}>
-              <Icon type="alert" className={alertIcon} />
-              <h3 className={alertTitle}>{weather.alerts.alert[0].headline}</h3>
-            </div>
-            <p className={alertContent}>{weather.alerts.alert[0].desc}</p>
-            <p className={alertValidation}>
-              Válido até:{" "}
-              {new Date(weather.alerts.alert[0].expires).toLocaleString()}
-            </p>
-          </div>
+          <Alert
+            title={weather.alerts.alert[0].headline}
+            description={weather.alerts.alert[0].desc}
+            validity={new Date(
+              weather.alerts.alert[0].expires
+            ).toLocaleString()}
+          />
         ) : (
           <div className={alertPlaceholder}></div>
         )}

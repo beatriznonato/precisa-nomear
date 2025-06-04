@@ -41,7 +41,95 @@ export const STATES = [
   "TO",
 ];
 
+const DISABILITIES = ["fisica", "visual", "auditiva", "cognitiva", "cronica"];
+
+const MEDICAL_EQUIPMENT = [
+  "cadeira de rodas",
+  "andador",
+  "muleta",
+  "bengala",
+  "respirador portátil",
+  "oxímetro",
+  "aparelho de pressão",
+  "concentrador de oxigênio",
+  "bomba de infusão",
+  "nebulizador",
+  "colchão pneumático",
+  "prótese auditiva",
+  "elevador para banheira",
+  "cadeira de banho",
+  "comadre ou urinol",
+  "suporte para soro",
+  "colete ortopédico",
+  "cadeira reclinável médica",
+];
+
+const MEDICATIONS = [
+  "paracetamol",
+  "dipirona",
+  "losartana",
+  "enalapril",
+  "furosemida",
+  "sinvastatina",
+  "atorvastatina",
+  "insulina",
+  "metformina",
+  "glifage",
+  "omeprazol",
+  "pantoprazol",
+  "ranitidina",
+  "amoxicilina",
+  "azitromicina",
+  "clonazepam",
+  "diazepam",
+  "fluoxetina",
+  "sertralina",
+  "levotiroxina",
+  "hidroclorotiazida",
+  "ácido acetilsalicílico (AAS)",
+  "prednisona",
+  "ibuprofeno",
+  "cetoprofeno",
+  "salbutamol (aerolin)",
+  "brometo de ipratrópio",
+];
+
+const RELATIONSHIPS = [
+  "pai",
+  "mae",
+  "avo",
+  "irmao",
+  "filho",
+  "tio",
+  "sobrinho",
+  "primo",
+  "conjuge",
+  "amigo",
+  "vizinho",
+  "cuidador",
+  "outro",
+];
+
 function generateFakeUser() {
+  const hasDisability = faker.datatype.boolean();
+  const disability = hasDisability
+    ? DISABILITIES[Math.floor(Math.random() * DISABILITIES.length)]
+    : "";
+
+  const needsMedicalEquip = faker.datatype.boolean();
+  const takesMedication = faker.datatype.boolean();
+
+  const medicalEquip = needsMedicalEquip
+    ? MEDICAL_EQUIPMENT[Math.floor(Math.random() * MEDICAL_EQUIPMENT.length)]
+    : "";
+
+  const medication = takesMedication
+    ? MEDICATIONS[Math.floor(Math.random() * MEDICATIONS.length)]
+    : "";
+
+  const relationship =
+    RELATIONSHIPS[Math.floor(Math.random() * RELATIONSHIPS.length)];
+
   return {
     email: faker.internet.email(),
     name: faker.person.fullName(),
@@ -51,15 +139,15 @@ function generateFakeUser() {
     phoneNumber: faker.phone.number(),
     livesAlone: faker.datatype.boolean() ? "sim" : "não",
     livesWith: "família",
-    hasDisability: "não",
-    disability: "",
-    needsMedicalEquip: "não",
-    medicalEquip: "",
-    takesMedication: "sim",
-    medication: "paracetamol",
+    hasDisability: hasDisability ? "sim" : "não",
+    disability,
+    needsMedicalEquip: needsMedicalEquip ? "sim" : "não",
+    medicalEquip,
+    takesMedication: takesMedication ? "sim" : "não",
+    medication,
     emergencyContact: {
       name: faker.person.fullName(),
-      relationship: "irmão",
+      relationship,
       phoneNumber: faker.phone.number(),
     },
     address: {
@@ -74,7 +162,7 @@ function generateFakeUser() {
   };
 }
 
-async function seedUsers(count = 100) {
+async function seedUsers(count = 500) {
   const batch = db.batch();
 
   for (let i = 0; i < count; i++) {
@@ -87,4 +175,4 @@ async function seedUsers(count = 100) {
   console.log(`${count} users created with success!`);
 }
 
-seedUsers(100).catch(console.error);
+seedUsers(500).catch(console.error);
