@@ -52,7 +52,18 @@ export const sideLayer = style({
   padding: "31px 55px",
   zIndex: 10,
   gap: 30,
-  transition: "ease-in-out 0.5",
+  transition: "right 0.5s ease-in-out",
+  "@media": {
+    "(max-width: 743px)": {
+      width: "100%",
+    },
+    "(max-width: 600px)": {
+      padding: "31px 30px",
+    },
+    "(max-width: 480px)": {
+      padding: "31px 20px",
+    },
+  },
 });
 
 export const sideLayerAlert = style({
@@ -120,4 +131,5 @@ export const ufBlockTitle = style({
 export const ufBlockCount = style({
   fontFamily: themeVars.font.family.text,
   fontSize: themeVars.font.size.heading,
+  fontWeight: 500,
 });
