@@ -35,7 +35,6 @@ import FormField from "../../../components/Form/FormField/FormField";
 import { userFormFields } from "../../complete-signup/types";
 import { formatCPF } from "../../../utils/formatCPF";
 import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
-import FormDropdown from "../../../components/Form/FormDropdown/FromDropdown";
 import {
   fieldset,
   loaderContainer,
@@ -48,6 +47,8 @@ import { isValidCPF } from "../../../utils/isValidCPF";
 import { isValidPhoneNumber } from "../../../utils/isValidPhoneNumber";
 import Loader from "../../../components/Loader/Loader";
 import ProfilePhoto from "../../../assets/images/profile-photo.png";
+import { autoFillAddressFromZip } from "../../../utils/autoFillAddressFromZip";
+import FormDropdown from "../../../components/Form/FormDropdown/FromDropdown";
 
 const NavTabs: Tab[] = [
   { name: "Home", icon: "home", to: "/" },
@@ -67,6 +68,8 @@ export const UserSettings = () => {
     undefined
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [zipError, setZipError] = useState<string | undefined>(undefined);
+  const [isZipValid, setIsZipValid] = useState<boolean>(true);
 
   const isFormValid = () => {
     const requiredFields = [
@@ -95,6 +98,8 @@ export const UserSettings = () => {
     if (userData.takesMedication === "sim" && !userData.medication) {
       return false;
     }
+
+    // if (isZipValid) return false;
 
     return requiredFields.every((field) => field.trim() !== "");
   };
@@ -180,6 +185,23 @@ export const UserSettings = () => {
     setIsSubmitting(false);
   };
 
+  // const handleChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  // ) => {
+  //   const { name } = e.target;
+  //   let { value } = e.target;
+
+  //   if (name === "cpf") {
+  //     value = formatCPF(value);
+  //   }
+
+  //   if (name === "phoneNumber") {
+  //     value = formatPhoneNumber(value);
+  //   }
+
+  //   setUserData({ ...userData, [name]: value });
+  // };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -194,6 +216,41 @@ export const UserSettings = () => {
       value = formatPhoneNumber(value);
     }
 
+    // Atualiza campos aninhados no endereço
+    if (name.startsWith("address.")) {
+      const addressField = name.split(".")[1];
+
+      // Atualiza userData.address[addressField]
+      setUserData((prev) => ({
+        ...prev,
+        address: {
+          ...prev.address,
+          [addressField]: value,
+        },
+      }));
+
+      // Se for campo zip, chama autoFillAddressFromZip para atualizar endereço
+      if (addressField === "zip") {
+        autoFillAddressFromZip(
+          value,
+          (field, val) => {
+            setUserData((prev) => ({
+              ...prev,
+              address: {
+                ...prev.address,
+                [field.split(".")[1]]: val,
+              },
+            }));
+          },
+          setZipError,
+          setIsZipValid
+        );
+      }
+
+      return; // evita duplicar setUserData
+    }
+
+    // Caso geral para campos fora do endereço
     setUserData({ ...userData, [name]: value });
   };
 
@@ -513,6 +570,7 @@ export const UserSettings = () => {
                   value={userData.address.zip}
                   onChange={handleChange}
                   required
+                  error={zipError}
                 />
 
                 <fieldset className={fieldset}>
