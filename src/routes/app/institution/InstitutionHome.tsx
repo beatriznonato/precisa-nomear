@@ -19,6 +19,7 @@ import {
 } from "../user/UserHome.css";
 import Map from "../../../components/Map/Map";
 import { mapContainer } from "./InstitutionHome.css";
+import LoadingScreen from "../../../components/LoadingScreen/LoadingScreen";
 
 const NavTabs: Tab[] = [
   { name: "Home", icon: "home", to: "/" },
@@ -27,8 +28,9 @@ const NavTabs: Tab[] = [
 
 export const InstitutionHome = () => {
   const { user } = useAuth();
-  const [userName, setUserName] = useState<string>("");
   const navigate = useNavigate();
+  const [userName, setUserName] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUserName() {
@@ -52,11 +54,38 @@ export const InstitutionHome = () => {
       } catch (error) {
         console.error("Error fetching user:", error);
         setUserName("Usuário");
+      } finally {
+        setIsLoading(false);
       }
     }
-
     fetchUserName();
   }, [user]);
+
+  if (isLoading) {
+    return (
+      <div className={container}>
+        <Navigation tabs={NavTabs} className={userNav} />
+        <div className={contentWrapper}>
+          <header className={header}>
+            <div className={headerTextWrapper}></div>
+            <nav className={upperNav}>
+              <Icon
+                className={settingsIcon}
+                type="settings"
+                onClick={() => navigate("/configuracoes")}
+              />
+              <div className={profilePhoto}>
+                <img style={{ width: "100%" }} src={ProfilePhoto} alt="" />
+              </div>
+            </nav>
+          </header>
+          <div>
+            <LoadingScreen />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={container}>

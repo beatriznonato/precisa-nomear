@@ -21,6 +21,7 @@ import {
 } from "./SignUp.css";
 import { Link } from "../../components/Link/Link";
 import Loader from "../../components/Loader/Loader";
+import { FirebaseError } from "firebase/app";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -46,7 +47,12 @@ export const SignUp = () => {
   };
 
   const createUser = async (uid: string, email: string) => {
-    await setDoc(doc(db, "users", uid), { email: email });
+    try {
+      await setDoc(doc(db, "users", uid), { email: email });
+    } catch (error) {
+      console.error("Erro ao salvar usuário no Firestore:", error);
+      throw error;
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -102,19 +108,25 @@ export const SignUp = () => {
         form.password
       );
       await createUser(userCredential.user.uid, form.email);
+      console.log("navegando...", userCredential.user.uid);
       navigate(`/completar-cadastro?uid=${userCredential.user.uid}`);
     } catch (error) {
-      const errorMessage = (error as Error).message;
-
-      if (errorMessage.includes("auth/email-already-in-use")) {
-        newErrors["email"] = "Este e-mail já está em uso.";
-      } else if (errorMessage.includes("auth/network-request-failed")) {
-        setGeneralError(
-          "Erro de rede. Verifique sua conexão com a internet e tente novamente."
-        );
+      if (error instanceof FirebaseError) {
+        if (error.code === "auth/email-already-in-use") {
+          newErrors["email"] = "Este e-mail já está em uso.";
+        } else if (error.code === "auth/network-request-failed") {
+          setGeneralError(
+            "Erro de rede. Verifique sua conexão com a internet e tente novamente."
+          );
+        } else {
+          console.error("Erro Firebase desconhecido:", error.code);
+          setGeneralError("Ocorreu um erro inesperado. Tente novamente.");
+        }
       } else {
-        setGeneralError("Ocorreu um erro inesperado. Tente novamente.");
+        console.error("Erro não-Firebase:", error);
+        setGeneralError("Erro desconhecido.");
       }
+      setErrors(newErrors);
     }
     setIsSubmitting(false);
   };

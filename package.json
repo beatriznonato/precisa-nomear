@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "generate-pwa-assets": "pwa-assets-generator --preset minimal public/logo.svg",
     "prepare": "npx simple-git-hooks",
-    "commit": "cz"
+    "commit": "cz",
+    "generate-users": "npx ts-node src/scripts/seedUsers.js;"
   },
   "config": {
     "commitizen": {
@@ -29,7 +30,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^6.1.6",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.23.1",
+    "recharts": "^2.15.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
