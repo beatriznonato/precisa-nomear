@@ -64,62 +64,64 @@ export const Map = () => {
         </div>
       )}
 
-      {selectedUF && (
-        <div
-          className={sideLayer}
-          style={{
-            right: selectedUF ? 0 : "-100%",
-          }}
-        >
-          <Button
-            className={returnBtn}
-            variant="transparent"
-            icon="arrowLeft"
-            onClick={() => setSelectedUF(null)}
-          >
-            Voltar
-          </Button>
-          <h2 className={ufName}>{getUfName(selectedUF)}</h2>
+      <div
+        className={sideLayer}
+        style={{
+          right: selectedUF ? 0 : "-100%",
+        }}
+      >
+        {selectedUF && (
+          <>
+            <Button
+              className={returnBtn}
+              variant="transparent"
+              icon="arrowLeft"
+              onClick={() => setSelectedUF(null)}
+            >
+              Voltar
+            </Button>
+            <h2 className={ufName}>{getUfName(selectedUF)}</h2>
 
-          <div className={stateData}>
-            <Alert
-              className={sideLayerAlert}
-              title="Nenhum desastre"
-              description="Tudo certo por aqui!"
-              icon="check"
-            />
-            <div className={ufDataGrid}>
-              <div className={ufBlock}>
-                <h3 className={ufBlockTitle}>Vulneráveis</h3>
-                <div className={ufBlockCount}>
-                  {userCountByUF[selectedUF] ?? 0}
+            <div className={stateData}>
+              <Alert
+                className={sideLayerAlert}
+                title="Nenhum desastre"
+                description="Tudo certo por aqui!"
+                icon="check"
+              />
+              <div className={ufDataGrid}>
+                <div className={ufBlock}>
+                  <h3 className={ufBlockTitle}>Vulneráveis</h3>
+                  <div className={ufBlockCount}>
+                    {userCountByUF[selectedUF] ?? 0}
+                  </div>
+                </div>
+
+                <div className={ufBlock}>
+                  <h3 className={ufBlockTitle}>Pedidos de Ajuda</h3>
+                  <div className={ufBlockCount}>
+                    {getActiveHelp(userCountByUF[selectedUF] ?? 0)}
+                  </div>
                 </div>
               </div>
 
               <div className={ufBlock}>
-                <h3 className={ufBlockTitle}>Pedidos de Ajuda</h3>
+                <h3 className={ufBlockTitle}>
+                  Vidas em áreas de risco histórico
+                </h3>
                 <div className={ufBlockCount}>
-                  {getActiveHelp(userCountByUF[selectedUF] ?? 0)}
+                  {getPercentage(userCountByUF[selectedUF] ?? 0)}
                 </div>
               </div>
-            </div>
 
-            <div className={ufBlock}>
-              <h3 className={ufBlockTitle}>
-                Vidas em áreas de risco histórico
-              </h3>
-              <div className={ufBlockCount}>
-                {getPercentage(userCountByUF[selectedUF] ?? 0)}
+              <div className={ufBlock}>
+                <h3 className={ufBlockTitle}>Vulnerabilidades</h3>
+                <Chart uf={selectedUF} />
               </div>
             </div>
-
-            <div className={ufBlock}>
-              <h3 className={ufBlockTitle}>Vulnerabilidades</h3>
-              <Chart uf={selectedUF} />
-            </div>
-          </div>
-        </div>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

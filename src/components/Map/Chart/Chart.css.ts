@@ -2,10 +2,18 @@ import { style } from "@vanilla-extract/css";
 import { themeVars } from "../../../theme.css";
 
 export const chartContainer = style({
+  width: 350,
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
   marginTop: 10,
+  "@media": {
+    "(max-width: 450px)": {
+      width: "100%",
+      flexDirection: "column",
+      gap: 30,
+    },
+  },
 });
 
 export const chartWrapper = style({
@@ -38,6 +46,13 @@ export const chartLegend = style({
   display: "flex",
   flexDirection: "column",
   gap: 8,
+  "@media": {
+    "(max-width: 450px)": {
+      display: "grid",
+      gridTemplateColumns: "repeat(2, 1fr)",
+      gap: 10,
+    },
+  },
 });
 
 export const legendContainer = style({
@@ -47,8 +62,8 @@ export const legendContainer = style({
 });
 
 export const legenColorElm = style({
-  width: 14,
-  height: 14,
+  minWidth: 14,
+  minHeight: 14,
   borderRadius: 4,
 });
 
