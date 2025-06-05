@@ -32,7 +32,7 @@ const NavTabs: Tab[] = [
 const UsersData = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { users } = useUsersWithCPF();
+  const { users, loading } = useUsersWithCPF();
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState<FiltersType>({
     city: "",
@@ -49,6 +49,7 @@ const UsersData = () => {
 
   useEffect(() => {
     async function fetchUserName() {
+      setIsLoading(true);
       try {
         if (!user) {
           return;
@@ -89,7 +90,7 @@ const UsersData = () => {
     setFilteredUsers(filtered);
   }, [filters, users]);
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return (
       <div className={container}>
         <Navigation tabs={NavTabs} className={userNav} />
