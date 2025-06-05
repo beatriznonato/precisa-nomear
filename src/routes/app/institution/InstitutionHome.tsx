@@ -18,8 +18,26 @@ import {
   profilePhoto,
 } from "../user/UserHome.css";
 import Map from "../../../components/Map/Map";
-import { mapContainer } from "./InstitutionHome.css";
+import {
+  dashboardContainer,
+  mapContainer,
+  mapPositioner,
+  mapWrapper,
+  ufBlockChart,
+  ufBlockTitleChart,
+} from "./InstitutionHome.css";
 import LoadingScreen from "../../../components/LoadingScreen/LoadingScreen";
+import {
+  ufDataGrid,
+  ufBlock,
+  ufBlockTitle,
+  ufBlockCount,
+} from "../../../components/Map/Map.css";
+import { getActiveHelp } from "../../../hooks/getActiveHelp";
+import { useTotalUsers } from "../../../hooks/useTotalUsers";
+import { VulnerabilitiesChart } from "./VulnerabilitiesChart/VulnerabilitiesChart";
+import { useVulnerabilitiesCount } from "../../../hooks/useTotalVunerabilities";
+import TopUFChart from "./TopUFChart/TopUFChart";
 
 const NavTabs: Tab[] = [
   { name: "Home", icon: "home", to: "/" },
@@ -29,8 +47,18 @@ const NavTabs: Tab[] = [
 export const InstitutionHome = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const totalUsers = useTotalUsers();
+
   const [userName, setUserName] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
+
+  const vulnerabilities = useVulnerabilitiesCount();
+  const barData = Object.entries(vulnerabilities).map(([name, value]) => ({
+    name,
+    value,
+  }));
+
+  console.log("barData", barData);
 
   useEffect(() => {
     async function fetchUserName() {
@@ -108,7 +136,36 @@ export const InstitutionHome = () => {
           </nav>
         </header>
         <div className={mapContainer}>
-          <Map />
+          <div className={mapWrapper}>
+            <div className={mapPositioner}>
+              <Map />
+            </div>
+          </div>
+          <div className={dashboardContainer}>
+            <div className={ufDataGrid}>
+              <div className={ufBlock}>
+                <h3 className={ufBlockTitle}>Vulneráveis</h3>
+                <div className={ufBlockCount}>{totalUsers ?? 0}</div>
+              </div>
+
+              <div className={ufBlock}>
+                <h3 className={ufBlockTitle}>Pedidos de Ajuda</h3>
+                <div className={ufBlockCount}>{getActiveHelp(totalUsers)}</div>
+              </div>
+            </div>
+
+            <div className={ufBlock}>
+              <h3 className={ufBlockTitle}>Top 5 estados</h3>
+              <div className={ufBlockCount}>
+                <TopUFChart />
+              </div>
+            </div>
+
+            <div className={ufBlockChart}>
+              <h3 className={ufBlockTitleChart}>Vulnerabilidades</h3>
+              <VulnerabilitiesChart data={barData} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

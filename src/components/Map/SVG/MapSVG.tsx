@@ -1,21 +1,46 @@
-import { statePath } from "./Map.css";
+import { useEffect } from "react";
+import { themeVars } from "../../../theme.css";
+import { statePath } from "../Map.css";
+import { mapSvg } from "./MapSvg.css";
 
 type MapSVGProps = {
   handleMouseEnter: (uf: string, e: React.MouseEvent<SVGPathElement>) => void;
   handleMouseLeave: () => void;
   handleClick: (uf: string) => void;
+  isSelected: string | null;
 };
 
 const MapSVG = ({
   handleMouseEnter,
   handleMouseLeave,
   handleClick,
+  isSelected,
 }: MapSVGProps) => {
+  useEffect(() => {
+    const mapSvg = document.getElementById("map-svg");
+
+    if (!mapSvg) return;
+
+    const paths = mapSvg.querySelectorAll("path");
+
+    paths.forEach((path) => {
+      path.setAttribute("fill", "transparent");
+    });
+
+    if (isSelected) {
+      const selectedPath = mapSvg.querySelector(`#${isSelected}`);
+      if (selectedPath) {
+        selectedPath.setAttribute("fill", themeVars.color.primary);
+      }
+    }
+  }, [isSelected]);
+
   return (
     <svg
+      id="map-svg"
+      className={mapSvg}
       xmlns="http://www.w3.org/2000/svg"
       width="600"
-      // height="688"
       viewBox="0 0 660 688"
       fill="none"
     >
@@ -25,7 +50,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="TO"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("TO", e)}
@@ -38,7 +62,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="SE"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("SE", e)}
@@ -51,7 +74,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="SP"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("SP", e)}
@@ -64,7 +86,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="SC"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("SC", e)}
@@ -77,7 +98,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="RR"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("RR", e)}
@@ -90,7 +110,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="RO"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("RO", e)}
@@ -103,7 +122,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="RS"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("RS", e)}
@@ -116,7 +134,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="RN"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("RN", e)}
@@ -129,7 +146,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="RJ"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("RJ", e)}
@@ -142,7 +158,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="PI"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("PI", e)}
@@ -155,7 +170,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="PE"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("PE", e)}
@@ -168,7 +182,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="PR"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("PR", e)}
@@ -181,7 +194,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="PB"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("PB", e)}
@@ -195,7 +207,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="PA"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("PA", e)}
@@ -208,7 +219,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="MS"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("MS", e)}
@@ -221,7 +231,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="MT"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("MT", e)}
@@ -234,7 +243,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="MA"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("MA", e)}
@@ -247,7 +255,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="GO"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("GO", e)}
@@ -260,7 +267,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="ES"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("ES", e)}
@@ -273,7 +279,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="DF"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("DF", e)}
@@ -286,7 +291,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="CE"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("CE", e)}
@@ -299,7 +303,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="BA"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("BA", e)}
@@ -312,7 +315,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="AM"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("AM", e)}
@@ -325,7 +327,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="AP"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("AP", e)}
@@ -338,7 +339,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="transparent"
         id="AL"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("AL", e)}
@@ -350,7 +350,6 @@ const MapSVG = ({
         stroke="#8753FF"
         strokeWidth="3"
         id="AC"
-        fill="transparent"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("AC", e)}
         onMouseLeave={handleMouseLeave}
@@ -363,7 +362,6 @@ const MapSVG = ({
         strokeWidth="3"
         strokeLinejoin="round"
         id="MG"
-        fill="transparent"
         className={statePath}
         onMouseEnter={(e) => handleMouseEnter("MG", e)}
         onMouseLeave={handleMouseLeave}
