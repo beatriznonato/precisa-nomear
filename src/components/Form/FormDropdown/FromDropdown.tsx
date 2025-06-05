@@ -4,6 +4,7 @@ import {
   inputWrapper,
   inputField,
   fieldError,
+  customArrow,
 } from "./FormDropdown.css";
 import { generateLabelId } from "../../../utils/generateLabelId";
 
@@ -60,6 +61,22 @@ export const FormDropdown = ({
             </option>
           ))}
         </select>
+        <span className={customArrow}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            viewBox="0 0 19 10"
+            fill="none"
+          >
+            <path
+              d="M1 1L9.5 9.5L18 1"
+              stroke="#9a9a9a"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+            />
+          </svg>
+        </span>
         {error && <p className={fieldError}>{error}</p>}
       </div>
     </div>

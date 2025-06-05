@@ -7,15 +7,36 @@ export const navContaniner = style({
   color: themeVars.color.white,
   padding: 33,
   height: "100dvh",
+  "@media": {
+    "(max-width: 700px)": {
+      position: "absolute",
+      zIndex: 99,
+      bottom: 0,
+      display: "flex",
+      width: "100%",
+      height: "max-content",
+      padding: 0,
+    },
+  },
 });
 
 export const navLogo = style({
   height: 25,
   width: "auto",
+  "@media": {
+    "(max-width: 700px)": {
+      display: "none",
+    },
+  },
 });
 
 export const navSubtitle = style({
   color: themeVars.color.grey,
+  "@media": {
+    "(max-width: 700px)": {
+      display: "none",
+    },
+  },
 });
 
 export const navUl = style({
@@ -26,6 +47,14 @@ export const navUl = style({
   listStyleType: "none",
   marginTop: 31,
   marginBottom: 50,
+  "@media": {
+    "(max-width: 700px)": {
+      width: "100%",
+      flexDirection: "row",
+      margin: "20px 0",
+      justifyContent: "space-around",
+    },
+  },
 });
 
 export const logoutContainer = style({
@@ -36,6 +65,12 @@ export const logoutContainer = style({
   fontSize: themeVars.font.size.text,
   alignItems: "center",
   padding: 0,
+
+  "@media": {
+    "(max-width: 700px)": {
+      display: "none",
+    },
+  },
 });
 
 export const logoutIcon = style({

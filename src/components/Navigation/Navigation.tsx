@@ -24,7 +24,7 @@ export type Tab = {
 
 type SidebarProps = {
   tabs: Tab[];
-  className: string;
+  className?: string;
 };
 
 export const Navigation = ({ tabs, className }: SidebarProps) => {

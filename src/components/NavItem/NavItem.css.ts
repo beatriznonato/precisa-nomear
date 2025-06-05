@@ -16,6 +16,11 @@ export const linkIcon = style({
       color: themeVars.color.primary,
     },
   },
+  "@media": {
+    "(max-width: 700px)": {
+      height: 30,
+    },
+  },
 });
 
 export const linkText = style({
@@ -24,6 +29,11 @@ export const linkText = style({
   selectors: {
     [`${container}:hover &`]: {
       color: themeVars.color.primary,
+    },
+  },
+  "@media": {
+    "(max-width: 700px)": {
+      display: "none",
     },
   },
 });

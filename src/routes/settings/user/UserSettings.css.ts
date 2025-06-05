@@ -24,6 +24,12 @@ export const tabsNavigation = style({
   justifyContent: "flex-start",
   padding: 0,
   gap: 49,
+
+  "@media": {
+    "(max-width: 420px)": {
+      gap: 30,
+    },
+  },
 });
 
 export const clearBtn = style({
@@ -31,6 +37,7 @@ export const clearBtn = style({
   border: "none",
   padding: 0,
   fontSize: themeVars.font.size.menu,
+  color: themeVars.color.black,
   paddingBottom: 4,
 });
 

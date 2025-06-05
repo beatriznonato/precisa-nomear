@@ -24,6 +24,17 @@ export const mapContainer = style({
   },
 });
 
+export const topSettingsIcon = style({
+  width: 34,
+  height: "auto",
+  cursor: "pointer",
+  "@media": {
+    "(max-width: 700px)": {
+      display: "none",
+    },
+  },
+});
+
 export const mapWrapper = style({
   width: "100%",
   display: "flex",

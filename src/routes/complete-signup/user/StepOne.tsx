@@ -12,6 +12,7 @@ import { formatCPF } from "../../../utils/formatCPF";
 import { isValidCPF } from "../../../utils/isValidCPF";
 import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
 import { isValidPhoneNumber } from "../../../utils/isValidPhoneNumber";
+import FormFieldDate from "../../../components/Form/FormFieldDate/FormFieldDate";
 
 export const StepOne = ({
   uid,
@@ -84,6 +85,7 @@ export const StepOne = ({
         onChange={handleChange}
         required
       />
+
       <FormField
         label="CPF"
         name="cpf"
@@ -92,14 +94,15 @@ export const StepOne = ({
         required
         error={cpfError}
       />
-      <FormField
+
+      <FormFieldDate
         label="Data de Nascimento"
         name="birthDate"
         value={form.birthDate}
-        type="date"
         onChange={handleChange}
         required
       />
+
       <FormDropdown
         label="Gênero"
         name="gender"
