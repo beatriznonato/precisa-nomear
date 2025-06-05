@@ -76,6 +76,8 @@ export const profileSummary = style({
 export const profileImg = style({
   width: 79,
   height: 79,
+  borderRadius: "50%",
+  overflow: "hidden",
 });
 
 export const summaryInstName = style({
