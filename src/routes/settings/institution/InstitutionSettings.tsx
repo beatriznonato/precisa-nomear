@@ -51,6 +51,7 @@ import { isValidZip } from "../../../utils/isValidZip";
 
 const NavTabs: Tab[] = [
   { name: "Home", icon: "home", to: "/" },
+  { name: "Dados", icon: "document", to: "/dados" },
   { name: "Configurações", icon: "settings", to: "/configuracoes" },
 ];
 export const InstSettings = () => {
@@ -333,7 +334,14 @@ export const InstSettings = () => {
               <div>
                 <div className={fieldsWrapper}>
                   <div className={profileSummary}>
-                    <img className={profileImg} src={ProfilePhoto} alt="" />
+                    <div className={profileImg}>
+                      <img
+                        style={{ width: "100%" }}
+                        src={ProfilePhoto}
+                        alt=""
+                      />
+                    </div>
+
                     <div>
                       <p className={summaryInstName}>{instName}</p>
                       <p className={summaryCnpj}>{instData.cnpj}</p>
