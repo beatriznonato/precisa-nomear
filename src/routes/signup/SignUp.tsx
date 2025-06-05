@@ -166,7 +166,7 @@ export const SignUp = () => {
               error={errors["password"]}
             />
             <FormField
-              label="Comfirmar Senha"
+              label="Confirmar Senha"
               name="confirmPassword"
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Senha forte"

@@ -30,6 +30,7 @@ export type UserFormFields = {
 };
 
 export type InstFormFields = {
+  email: string;
   institutionName: string;
   cnpj: string;
   organizationType: string;
@@ -88,6 +89,7 @@ export const userFormFields: UserFormFields = {
 };
 
 export const instFormFields: InstFormFields = {
+  email: "",
   institutionName: "",
   cnpj: "",
   organizationType: "",
