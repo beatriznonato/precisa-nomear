@@ -17,7 +17,7 @@ import {
 import Button from "../Button/Button";
 import { getUfName } from "../../hooks/getUfName";
 import Chart from "./Chart/Chart";
-import MapSVG from "./MapSVG";
+import MapSVG from "./SVG/MapSVG";
 import Alert from "../Alert/Alert";
 import { getActiveHelp } from "../../hooks/getActiveHelp";
 import { getPercentage } from "../../hooks/getPercentage";
@@ -52,6 +52,7 @@ export const Map = () => {
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
         handleClick={handleClick}
+        isSelected={selectedUF}
       />
 
       {hoveredUF && (

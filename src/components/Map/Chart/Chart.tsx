@@ -78,19 +78,24 @@ const Chart = ({ uf }: ChartProps) => {
     return <p>Nenhum dado disponível para {getUfName(uf)}</p>;
   }
 
+  const sortedData = [...data]
+    .filter((item) => item.value > 0)
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
+
   return (
     <div className={chartContainer}>
       <div className={chartWrapper}>
         <PieChart width={200} height={200}>
           <Pie
-            data={data}
+            data={sortedData}
             innerRadius={70}
             outerRadius={100}
             dataKey="value"
             onMouseEnter={(_, index) => setActiveIndex(index)}
             onMouseLeave={() => setActiveIndex(null)}
           >
-            {data.map((_entry, index) => (
+            {sortedData.map((_entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
