@@ -75,7 +75,7 @@ export const ufBlockChart = style({
   display: "flex",
   flexDirection: "column",
   gap: 5,
-  padding: "24px 0",
+  padding: "24px 0 0",
   border: "1px solid",
   borderColor: themeVars.color.lightGrey,
   borderRadius: 20,

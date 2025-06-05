@@ -12,5 +12,6 @@ globalStyle(`.${barChart} line`, {
 
 export const responsiveContainer = style({
   minWidth: "350px !important",
-  padding: "0 10px",
+  padding: "0 0 8px",
+  marginTop: "-30px !important",
 });

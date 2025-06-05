@@ -55,13 +55,14 @@ export const VulnerabilitiesChart = ({ data }: { data: BarDataItem[] }) => {
     <ResponsiveContainer
       className={responsiveContainer}
       width={"100%"}
-      height={300}
+      height={250}
     >
       <BarChart className={barChart} data={filteredData}>
         <XAxis dataKey="name" />
         <Tooltip
           cursor={{
             fill: "white",
+            height: "0",
           }}
           content={<CustomTooltip />}
         />
