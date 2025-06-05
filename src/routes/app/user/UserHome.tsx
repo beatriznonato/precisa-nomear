@@ -145,6 +145,8 @@ export const UserHome = () => {
       </div>
     );
 
+  console.log(weather.alerts.alert[0]);
+
   // mock de alerta
   // weather.alerts = {
   //   alert: [
@@ -206,11 +208,14 @@ export const UserHome = () => {
         </div>
         {weather.alerts?.alert?.length > 0 ? (
           <Alert
-            title={weather.alerts.alert[0].headline}
-            description={weather.alerts.alert[0].desc}
+            title={weather.alerts.alert[0].event}
+            description={weather.alerts.alert[0].description}
             validity={new Date(
-              weather.alerts.alert[0].expires
-            ).toLocaleString()}
+              weather.alerts.alert[0].end * 1000
+            ).toLocaleString("pt-BR", {
+              dateStyle: "short",
+              timeStyle: "short",
+            })}
           />
         ) : (
           <div className={alertPlaceholder}></div>
