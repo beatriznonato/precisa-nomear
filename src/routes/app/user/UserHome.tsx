@@ -145,21 +145,6 @@ export const UserHome = () => {
       </div>
     );
 
-  console.log(weather.alerts.alert[0]);
-
-  // mock de alerta
-  // weather.alerts = {
-  //   alert: [
-  //     {
-  //       headline: "Alerta de Tempestade",
-  //       desc: "Risco de tempestade severa com ventos fortes e queda de granizo nas próximas horas.",
-  //       event: "Tempestade Severas",
-  //       effective: "2025-06-02T14:00:00Z",
-  //       expires: "2025-06-02T20:00:00Z",
-  //     },
-  //   ],
-  // };
-
   return (
     <div className={container}>
       <Navigation tabs={NavTabs} className={userNav} />
