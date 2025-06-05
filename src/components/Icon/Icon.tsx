@@ -12,9 +12,13 @@ import User from "../../assets/icons/user.svg?react";
 import Institution from "../../assets/icons/institution.svg?react";
 import Check from "../../assets/icons/check.svg?react";
 import Alert from "../../assets/icons/alert.svg?react";
+import Age from "../../assets/icons/age.svg?react";
+import Gender from "../../assets/icons/gender.svg?react";
+import Medication from "../../assets/icons/medication.svg?react";
 
 export type IconType =
   | "alert"
+  | "age"
   | "arrowLeftSimple"
   | "arrowLeft"
   | "check"
@@ -22,8 +26,10 @@ export type IconType =
   | "eyeOpen"
   | "eyeClosed"
   | "filter"
+  | "gender"
   | "home"
   | "logOut"
+  | "medication"
   | "settings"
   | "logo"
   | "user"
@@ -41,6 +47,7 @@ const icons: Record<
   React.FunctionComponent<React.SVGProps<SVGSVGElement>>
 > = {
   alert: Alert,
+  age: Age,
   arrowLeftSimple: ArrowLeftSimple,
   arrowLeft: ArrowLeft,
   check: Check,
@@ -48,8 +55,10 @@ const icons: Record<
   eyeOpen: EyeOpen,
   eyeClosed: EyeClosed,
   filter: Filter,
+  gender: Gender,
   home: Home,
   logOut: LogOut,
+  medication: Medication,
   settings: Settings,
   logo: Logo,
   user: User,

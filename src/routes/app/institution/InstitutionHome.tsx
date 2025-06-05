@@ -23,6 +23,7 @@ import LoadingScreen from "../../../components/LoadingScreen/LoadingScreen";
 
 const NavTabs: Tab[] = [
   { name: "Home", icon: "home", to: "/" },
+  { name: "Dados", icon: "document", to: "/dados" },
   { name: "Configurações", icon: "settings", to: "/configuracoes" },
 ];
 

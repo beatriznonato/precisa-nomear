@@ -1,0 +1,15 @@
+export const RELATIONSHIPS = [
+  "pai",
+  "mae",
+  "avo",
+  "irmao",
+  "filho",
+  "tio",
+  "sobrinho",
+  "primo",
+  "conjuge",
+  "amigo",
+  "vizinho",
+  "cuidador",
+  "outro",
+];

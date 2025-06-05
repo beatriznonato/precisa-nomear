@@ -31,6 +31,7 @@
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.23.1",
+    "react-select": "^5.10.1",
     "recharts": "^2.15.3"
   },
   "devDependencies": {
