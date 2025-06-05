@@ -9,11 +9,12 @@ type WeatherData = {
   location: { name: string; region: string };
   alerts: {
     alert: {
-      headline: string;
-      desc: string;
+      sender_name: string;
       event: string;
-      effective: string;
-      expires: string;
+      start: number;
+      end: number;
+      description: string;
+      tags: string[];
     }[];
   };
 };

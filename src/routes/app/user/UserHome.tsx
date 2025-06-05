@@ -145,19 +145,6 @@ export const UserHome = () => {
       </div>
     );
 
-  // mock de alerta
-  // weather.alerts = {
-  //   alert: [
-  //     {
-  //       headline: "Alerta de Tempestade",
-  //       desc: "Risco de tempestade severa com ventos fortes e queda de granizo nas próximas horas.",
-  //       event: "Tempestade Severas",
-  //       effective: "2025-06-02T14:00:00Z",
-  //       expires: "2025-06-02T20:00:00Z",
-  //     },
-  //   ],
-  // };
-
   return (
     <div className={container}>
       <Navigation tabs={NavTabs} className={userNav} />
@@ -206,11 +193,14 @@ export const UserHome = () => {
         </div>
         {weather.alerts?.alert?.length > 0 ? (
           <Alert
-            title={weather.alerts.alert[0].headline}
-            description={weather.alerts.alert[0].desc}
+            title={weather.alerts.alert[0].event}
+            description={weather.alerts.alert[0].description}
             validity={new Date(
-              weather.alerts.alert[0].expires
-            ).toLocaleString()}
+              weather.alerts.alert[0].end * 1000
+            ).toLocaleString("pt-BR", {
+              dateStyle: "short",
+              timeStyle: "short",
+            })}
           />
         ) : (
           <div className={alertPlaceholder}></div>
