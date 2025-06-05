@@ -35,6 +35,7 @@ import FormField from "../../../components/Form/FormField/FormField";
 import { userFormFields } from "../../complete-signup/types";
 import { formatCPF } from "../../../utils/formatCPF";
 import { formatPhoneNumber } from "../../../utils/formatPhoneNumber";
+import FormDropdown from "../../../components/Form/FormDropdown/FromDropdown";
 import {
   fieldset,
   loaderContainer,
@@ -47,8 +48,6 @@ import { isValidCPF } from "../../../utils/isValidCPF";
 import { isValidPhoneNumber } from "../../../utils/isValidPhoneNumber";
 import Loader from "../../../components/Loader/Loader";
 import ProfilePhoto from "../../../assets/images/profile-photo.png";
-import { autoFillAddressFromZip } from "../../../utils/autoFillAddressFromZip";
-import FormDropdown from "../../../components/Form/FormDropdown/FromDropdown";
 
 const NavTabs: Tab[] = [
   { name: "Home", icon: "home", to: "/" },
@@ -68,8 +67,6 @@ export const UserSettings = () => {
     undefined
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [zipError, setZipError] = useState<string | undefined>(undefined);
-  const [isZipValid, setIsZipValid] = useState<boolean>(true);
 
   const isFormValid = () => {
     const requiredFields = [
@@ -86,6 +83,7 @@ export const UserSettings = () => {
       userData.address.state,
     ];
 
+    // Verifica condicionalmente campos de saúde
     if (userData.hasDisability === "sim" && !userData.disability) {
       return false;
     }
@@ -97,8 +95,6 @@ export const UserSettings = () => {
     if (userData.takesMedication === "sim" && !userData.medication) {
       return false;
     }
-
-    if (!isZipValid) return false;
 
     return requiredFields.every((field) => field.trim() !== "");
   };
@@ -153,6 +149,44 @@ export const UserSettings = () => {
     fetchUserData();
   }, [user]);
 
+  const [userName, setUserName] = useState<string>("");
+
+  useEffect(() => {
+    async function fetchUserName() {
+      try {
+        if (!user) {
+          setUserName("Usuário");
+
+          return;
+        }
+
+        const userId = user.uid;
+
+        const userRef = doc(db, "users", userId);
+
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+
+          const fullName = userData.name || "";
+
+          setUserName(fullName);
+        } else {
+          setUserName("Usuário");
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+
+        setUserName("Usuário");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchUserName();
+  }, [user]);
+
   const handleSaveChanges = async () => {
     if (!user) return;
     setIsSubmitting(true);
@@ -196,37 +230,6 @@ export const UserSettings = () => {
 
     if (name === "phoneNumber") {
       value = formatPhoneNumber(value);
-    }
-
-    if (name.startsWith("address.")) {
-      const addressField = name.split(".")[1];
-
-      setUserData((prev) => ({
-        ...prev,
-        address: {
-          ...prev.address,
-          [addressField]: value,
-        },
-      }));
-
-      if (addressField === "zip") {
-        autoFillAddressFromZip(
-          value,
-          (field, val) => {
-            setUserData((prev) => ({
-              ...prev,
-              address: {
-                ...prev.address,
-                [field.split(".")[1]]: val,
-              },
-            }));
-          },
-          setZipError,
-          setIsZipValid
-        );
-      }
-
-      return;
     }
 
     setUserData({ ...userData, [name]: value });
@@ -328,7 +331,7 @@ export const UserSettings = () => {
                 <div className={profileSummary}>
                   <img className={profileImg} src={ProfilePhoto} alt="" />
                   <div>
-                    <p className={summaryName}>{userData.name}</p>
+                    <p className={summaryName}>{userName}</p>
                     <p className={summaryCpf}>{userData.cpf}</p>
                   </div>
                 </div>
@@ -548,7 +551,6 @@ export const UserSettings = () => {
                   value={userData.address.zip}
                   onChange={handleChange}
                   required
-                  error={zipError}
                 />
 
                 <fieldset className={fieldset}>
