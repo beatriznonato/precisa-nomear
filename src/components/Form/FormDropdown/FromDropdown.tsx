@@ -1,4 +1,3 @@
-import { HTMLInputTypeAttribute } from "react";
 import {
   container,
   fieldLabel,
