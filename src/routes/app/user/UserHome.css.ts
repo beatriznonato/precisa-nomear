@@ -77,6 +77,7 @@ export const profilePhoto = style({
   width: 34,
   height: 34,
   borderRadius: "50%",
+  overflow: "hidden",
 });
 
 export const weatherIcon = style({
