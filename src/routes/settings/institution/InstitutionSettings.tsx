@@ -25,13 +25,7 @@ import {
 } from "./InstitutionSettings.css";
 import FormField from "../../../components/Form/FormField/FormField";
 import { db } from "../../../firebase/FirebaseConfig";
-import {
-  header,
-  profilePhoto,
-  settingsIcon,
-  upperNav,
-  userNav,
-} from "../../app/user/UserHome.css";
+import { header, profilePhoto, upperNav } from "../../app/user/UserHome.css";
 import Icon from "../../../components/Icon/Icon";
 import LoadingScreen from "../../../components/LoadingScreen/LoadingScreen";
 import {
@@ -48,6 +42,7 @@ import ProfilePhoto from "../../../assets/images/profile-photo.png";
 import { formatZip } from "../../../utils/formatZip";
 import { autoFillAddressFromZip } from "../../../utils/autoFillAddressFromZip";
 import { isValidZip } from "../../../utils/isValidZip";
+import { topSettingsIcon } from "../../app/institution/InstitutionHome.css";
 
 const NavTabs: Tab[] = [
   { name: "Home", icon: "home", to: "/" },
@@ -251,13 +246,13 @@ export const InstSettings = () => {
   if (isLoading) {
     return (
       <div className={container}>
-        <Navigation tabs={NavTabs} className={userNav} />
+        <Navigation tabs={NavTabs} />
         <div className={contentWrapper}>
           <header className={header}>
             <h2>Configurações</h2>
             <nav className={upperNav}>
               <Icon
-                className={settingsIcon}
+                className={topSettingsIcon}
                 type="settings"
                 onClick={() => navigate("/configuracoes")}
               />
@@ -274,7 +269,7 @@ export const InstSettings = () => {
 
   return (
     <div className={container}>
-      <Navigation tabs={NavTabs} className={userNav} />
+      <Navigation tabs={NavTabs} />
       <div className={contentWrapper}>
         <header className={header}>
           <h2 className={goBack}>
@@ -287,7 +282,7 @@ export const InstSettings = () => {
           </h2>
           <nav className={upperNav}>
             <Icon
-              className={settingsIcon}
+              className={topSettingsIcon}
               type="settings"
               onClick={() => navigate("/configuracoes")}
             />
@@ -369,6 +364,7 @@ export const InstSettings = () => {
                       onChange={handleChange}
                       required
                     />
+
                     <FormField
                       label="Cargo / Função"
                       name="personInCharge.position"

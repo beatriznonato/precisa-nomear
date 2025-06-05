@@ -8,6 +8,8 @@ globalStyle("*", {
 globalStyle("html, body", {
   margin: 0,
   padding: 0,
+  overscrollBehavior: "none",
+  touchAction: "manipulation",
 });
 
 globalStyle(`.${themeClass}`, {

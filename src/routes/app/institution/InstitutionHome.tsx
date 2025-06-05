@@ -9,12 +9,10 @@ import { useAuth } from "../../../firebase/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import {
   container,
-  userNav,
   contentWrapper,
   header,
   headerTextWrapper,
   upperNav,
-  settingsIcon,
   profilePhoto,
 } from "../user/UserHome.css";
 import Map from "../../../components/Map/Map";
@@ -23,6 +21,7 @@ import {
   mapContainer,
   mapPositioner,
   mapWrapper,
+  topSettingsIcon,
   ufBlockChart,
   ufBlockTitleChart,
 } from "./InstitutionHome.css";
@@ -59,8 +58,6 @@ export const InstitutionHome = () => {
     value,
   }));
 
-  console.log("barData", barData);
-
   useEffect(() => {
     async function fetchUserName() {
       try {
@@ -74,6 +71,9 @@ export const InstitutionHome = () => {
 
         if (userSnap.exists()) {
           const userData = userSnap.data();
+
+          if (!("cnpj" in userData)) return;
+
           const fullName = userData.personInCharge.name || "";
           const firstName = fullName.split(" ")[0];
           setUserName(firstName);
@@ -93,13 +93,13 @@ export const InstitutionHome = () => {
   if (isLoading) {
     return (
       <div className={container}>
-        <Navigation tabs={NavTabs} className={userNav} />
+        <Navigation tabs={NavTabs} />
         <div className={contentWrapper}>
           <header className={header}>
             <div className={headerTextWrapper}></div>
             <nav className={upperNav}>
               <Icon
-                className={settingsIcon}
+                className={topSettingsIcon}
                 type="settings"
                 onClick={() => navigate("/configuracoes")}
               />
@@ -118,7 +118,7 @@ export const InstitutionHome = () => {
 
   return (
     <div className={container}>
-      <Navigation tabs={NavTabs} className={userNav} />
+      <Navigation tabs={NavTabs} />
       <div className={contentWrapper}>
         <header className={header}>
           <div className={headerTextWrapper}>
@@ -127,7 +127,7 @@ export const InstitutionHome = () => {
           </div>
           <nav className={upperNav}>
             <Icon
-              className={settingsIcon}
+              className={topSettingsIcon}
               type="settings"
               onClick={() => navigate("/configuracoes")}
             />

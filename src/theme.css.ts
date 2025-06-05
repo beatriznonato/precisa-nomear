@@ -77,7 +77,7 @@ export const themeClass = createTheme(themeVars, {
       mobile: {
         heading: "20px",
         heading2: "17px",
-        text: "15px",
+        text: "16px",
         button: "13px",
         error: "13px",
       },

@@ -48,6 +48,7 @@ import { isValidCPF } from "../../../utils/isValidCPF";
 import { isValidPhoneNumber } from "../../../utils/isValidPhoneNumber";
 import Loader from "../../../components/Loader/Loader";
 import ProfilePhoto from "../../../assets/images/profile-photo.png";
+import FormFieldDate from "../../../components/Form/FormFieldDate/FormFieldDate";
 
 const NavTabs: Tab[] = [
   { name: "Home", icon: "home", to: "/" },
@@ -386,11 +387,10 @@ export const UserSettings = () => {
                   error={cpfError}
                 />
 
-                <FormField
+                <FormFieldDate
                   label="Data de Nascimento"
                   name="birthDate"
                   value={userData.birthDate}
-                  type="date"
                   onChange={handleChange}
                   required
                 />

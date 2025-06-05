@@ -25,6 +25,12 @@ export const tabsNavigation = style({
   justifyContent: "flex-start",
   padding: 0,
   gap: 49,
+
+  "@media": {
+    "(max-width: 420px)": {
+      gap: 30,
+    },
+  },
 });
 
 export const clearBtn = style({
@@ -55,6 +61,7 @@ export const settingTabForm = style({
   flexDirection: "column",
   justifyContent: "space-between",
   overflow: "scroll",
+  gap: 16,
   // Hide scrollbar in WebKit browsers (Chrome, Safari)
   selectors: {
     "&::-webkit-scrollbar": {

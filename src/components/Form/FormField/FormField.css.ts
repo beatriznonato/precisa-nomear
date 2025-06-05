@@ -22,6 +22,8 @@ export const inputWrapper = style({
 export const inputField = style({
   width: "100%",
   border: "none",
+  fontSize: themeVars.font.size.mobile.text,
+  color: themeVars.color.black,
   selectors: {
     "&::placeholder": {
       color: themeVars.color.grey,
