@@ -3,12 +3,17 @@ import { themeVars } from "../../theme.css";
 
 export const header = style({
   position: "absolute",
-  padding: "50px 40px",
+  padding: "34px 40px",
 });
 
 export const logo = style({
   width: "auto",
   minHeight: 41,
+  "@media": {
+    "(max-width: 1000px)": {
+      display: "none",
+    },
+  },
 });
 
 export const container = style({
