@@ -98,7 +98,7 @@ These rules ensure that only authenticated users can read and write data in the 
 
 3. Generating the Authentication Certificate 
 
-Still in the Firebase Console, it is necessary to generate an authentication certificate:
+If you want to batch-create user profiles to simulate how the application would function, you’ll need to generate an authentication certificate on Firebase:
 
 1. Go to **Project Settings > Service Accounts**
 2. Click on **Generate new private key**
@@ -107,8 +107,12 @@ Still in the Firebase Console, it is necessary to generate an authentication cer
 - Move it to the project's scripts folder
 - Save it securely — it should never be shared or committed to version control
   
-⚠️ Warning: This certificate is only required in environments that use server-side authentication.
-For this project (client-side), the default Firebase configuration using the .env file is sufficient to run the application both locally and in production through the frontend.
+To mock user data, simply run the following command in your CLI:
+
+```bash
+pnpm generate-users 10
+```
+🔑 **Important:** Replace `10` with the desired number of users you want to create. If you don’t pass a number, the default is 100 users.
 
 🔗 Learn how to configure your .env file, set secure Firestore rules, and optionally generate a Firebase service key in the Firebase Setup [Wiki](https://github.com/beatriznonato/rede-do-bem/wiki/⚙%EF%B8%8F-Firebase-Setup).
 
