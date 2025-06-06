@@ -20,7 +20,6 @@ import {
   fieldsWrapper,
   goBack,
   goBackIcon,
-  profileImg,
   profileSummary,
   selectedStyles,
   settingsBtn,
@@ -330,7 +329,9 @@ export const UserSettings = () => {
             <form className={settingTabForm}>
               <div className={fieldsWrapper}>
                 <div className={profileSummary}>
-                  <img className={profileImg} src={ProfilePhoto} alt="" />
+                  <div className={profilePhoto}>
+                    <img style={{ width: "100%" }} src={ProfilePhoto} alt="" />
+                  </div>
                   <div>
                     <p className={summaryName}>{userName}</p>
                     <p className={summaryCpf}>{userData.cpf}</p>
