@@ -102,10 +102,15 @@ Still in the Firebase Console, it is necessary to generate an authentication cer
 
 1. Go to **Project Settings > Service Accounts**
 2. Click on **Generate new private key**
-3. Save the generated `.json` file securely — it should **never** be shared or committed to version control.
+3. After downloading the .json file:
+- Rename it to serviceAccountKey.json
+- Move it to the project's scripts folder
+- Save it securely — it should never be shared or committed to version control
+  
+⚠️ Warning: This certificate is only required in environments that use server-side authentication.
+For this project (client-side), the default Firebase configuration using the .env file is sufficient to run the application both locally and in production through the frontend.
 
-⚠️ **Warning:** This certificate is only required in environments that use **server-side authentication**.  
-For this project (client-side), the default Firebase configuration using the `.env` file is sufficient to run the application both locally and in production through the frontend.
+🔗 Learn how to configure your .env file, set secure Firestore rules, and optionally generate a Firebase service key in the Firebase Setup [Wiki]().
 
 ## PWA 📱
 
