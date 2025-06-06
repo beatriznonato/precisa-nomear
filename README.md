@@ -2,7 +2,22 @@
 
 ## Challenge Description
 
+This project is a web application developed as a Progressive Web App (PWA), with the goal of providing **visibility and support to people in vulnerable situations during natural disasters**. The platform connects users — such as elderly individuals, people with disabilities, or reduced mobility — to **institutions responsible for emergency response**, making it easier to access help when every second matters.
+
+The application offers **accessible and intuitive features**, including registration with specific needs, climate risk alerts, an emergency button, and an institutional dashboard for real-time data visualization of users at risk.
+
+Information is securely stored using **Firebase**, ensuring **data integrity and scalability**. Authentication is handled via **Firebase Auth**, with encryption and session protection.
+
+
 ## Features ✨
+
+Features currently available in the software:
+
+- **Accessible registration forms:** for entering personal data and special needs (e.g., wheelchair use, medical devices).
+- **Institutional dashboard:** real-time map, graphs, help request list, and state-by-state data visualization.
+- **User home screen:** weather information, emergency button, and visual alerts.
+- **Settings screen:** with personal data and logout option.
+- **Login and registration screens:** accessible and mobile-friendly.
 
 ## Pre Requirements ‼️
 
@@ -54,7 +69,7 @@ For development purposes, where you can see changes in real-time as you edit the
 
 ## Firebase Setup 🖥
 
-Create a _.env_ file and fill in the fields with your Firebase Data.
+1. Create a file named `.env` at the root of the project and fill in the fields with the data from your Firebase project:
 
 ```
 VITE_API_KEY=
@@ -63,10 +78,34 @@ VITE_PROJECT_ID=
 VITE_STORAGE_BUCKET=
 VITE_MESSAGING_SENDER_ID=
 VITE_APP_ID=
+VITE_WEATHER_API_KEY=
 ```
+🔑 **Important:** The `VITE_WEATHER_API_KEY` field must contain your OpenWeatherMap API key, used to fetch real-time alerts and weather forecasts.
 
-(Importante ativar authentication e cloudstore firebase no firebase também)
-(quando criar cloudstore, scriar uma coleção chamada users - alterar as regras do firestore (colocar aqui depois))
+2. Access the **Firebase Console**, open your project, and configure the Firestore security rules with the following content:
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+These rules ensure that only authenticated users can read and write data in the database.
+
+3. Generating the Authentication Certificate 
+
+Still in the Firebase Console, it is necessary to generate an authentication certificate:
+
+1. Go to **Project Settings > Service Accounts**
+2. Click on **Generate new private key**
+3. Save the generated `.json` file securely — it should **never** be shared or committed to version control.
+
+⚠️ **Warning:** This certificate is only required in environments that use **server-side authentication**.  
+For this project (client-side), the default Firebase configuration using the `.env` file is sufficient to run the application both locally and in production through the frontend.
 
 ## PWA 📱
 
