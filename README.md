@@ -110,7 +110,7 @@ Still in the Firebase Console, it is necessary to generate an authentication cer
 ⚠️ Warning: This certificate is only required in environments that use server-side authentication.
 For this project (client-side), the default Firebase configuration using the .env file is sufficient to run the application both locally and in production through the frontend.
 
-🔗 Learn how to configure your .env file, set secure Firestore rules, and optionally generate a Firebase service key in the Firebase Setup [Wiki]().
+🔗 Learn how to configure your .env file, set secure Firestore rules, and optionally generate a Firebase service key in the Firebase Setup [Wiki](https://github.com/beatriznonato/rede-do-bem/wiki/⚙%EF%B8%8F-Firebase-Setup).
 
 ## PWA 📱
 
@@ -128,19 +128,19 @@ Figma was chosen as the central tool in the challenge due to its real-time colla
 
 The project structure was designed to ensure organization, scalability, and a clear separation of concerns, following best practices for PWA development and Firebase integration.
 
-🔗 Understand the structure and technologies used in the [Wiki]()
+🔗 Understand the structure and technologies used in the [Wiki](https://github.com/beatriznonato/rede-do-bem/wiki/🏗%EF%B8%8F-Application-Architecture)
 
 ## CI/CD with GitHub Actions 🤖
 
 This project uses GitHub Actions to automate tasks such as build, testing, and validation, ensuring reliability throughout the development process.
 
-🔗 See the details of the CI/CD workflow in the [Wiki]()
+🔗 See the details of the CI/CD workflow in the [Wiki](https://github.com/beatriznonato/rede-do-bem/wiki/🤖-CI-CD-with-GitHub-Actions)
 
 ## Branch Protection 🛡
 
 The `main` branch is protected to ensure the integrity of the main codebase. This includes requiring pull requests and code reviews before merging.
 
-🔗 Learn more about the protection rules in the [Wiki]()
+🔗 Learn more about the protection rules in the [Wiki](https://github.com/beatriznonato/rede-do-bem/wiki/🛡-Branch-Protection)
 
 ## Fun Facts ⭐
 
