@@ -8,7 +8,6 @@ The application offers **accessible and intuitive features**, including registra
 
 Information is securely stored using **Firebase**, ensuring **data integrity and scalability**. Authentication is handled via **Firebase Auth**, with encryption and session protection.
 
-
 ## Features ✨
 
 Features currently available in the software:
@@ -80,6 +79,7 @@ VITE_MESSAGING_SENDER_ID=
 VITE_APP_ID=
 VITE_WEATHER_API_KEY=
 ```
+
 🔑 **Important:** The `VITE_WEATHER_API_KEY` field must contain your OpenWeatherMap API key, used to fetch real-time alerts and weather forecasts.
 
 2. Access the **Firebase Console**, open your project, and configure the Firestore security rules with the following content:
@@ -94,24 +94,27 @@ service cloud.firestore {
   }
 }
 ```
+
 These rules ensure that only authenticated users can read and write data in the database.
 
-3. Generating the Authentication Certificate 
+3. Generating the Authentication Certificate
 
 If you want to batch-create user profiles to simulate how the application would function, you’ll need to generate an authentication certificate on Firebase:
 
 1. Go to **Project Settings > Service Accounts**
 2. Click on **Generate new private key**
 3. After downloading the .json file:
+
 - Rename it to serviceAccountKey.json
 - Move it to the project's scripts folder
 - Save it securely — it should never be shared or committed to version control
-  
+
 To mock user data, simply run the following command in your CLI:
 
 ```bash
 pnpm generate-users 10
 ```
+
 🔑 **Important:** Replace `10` with the desired number of users you want to create. If you don’t pass a number, the default is 100 users.
 
 🔗 Learn how to configure your .env file, set secure Firestore rules, and optionally generate a Firebase service key in the Firebase Setup [Wiki](https://github.com/beatriznonato/rede-do-bem/wiki/⚙%EF%B8%8F-Firebase-Setup).
@@ -155,6 +158,8 @@ The `main` branch is protected to ensure the integrity of the main codebase. Thi
 ## Fun Facts ⭐
 
 - This challenge was specifically developed for **Global Solution** as part of a guidance program by [FIAP](https://www.fiap.com.br) in partnership with [IBM](https://www.ibm.com/us-en), [Médicos Sem Fronteiras](https://doe.msf.org.br), [INPE](https://www.gov.br/inpe/pt-br), [Santo André | Defesa Civil](https://portais.santoandre.sp.gov.br/defesacivil/) and [Corpo de Bombeiros | São Paulo](https://www.corpodebombeiros.sp.gov.br/#/).
-  
--  🏆 In **June 2025**, the project **Protech the Future** was awarded **Global Solution Champion**, recognizing its innovative approach to preventing extreme natural events through technology.
+- 🏆 In **June 2025**, the project **Protech the Future** was awarded **Global Solution Champion**, recognizing its innovative approach to preventing extreme natural events through technology.
 
+<p align="center">
+  <img src="./src/assets/images/rede-do-bem-awarded.jpg" alt="Rede do Bem Awarded" width="600" />
+</p>
