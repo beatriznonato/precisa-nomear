@@ -140,6 +140,12 @@ This project uses GitHub Actions to automate tasks such as build, testing, and v
 
 🔗 See the details of the CI/CD workflow in the [Wiki](https://github.com/beatriznonato/rede-do-bem/wiki/🤖-CI-CD-with-GitHub-Actions)
 
+## Commit Message Convention 📦
+
+Standardizing commit messages brings consistency to the development workflow and enables automated processes like changelog generation.
+
+🔗 Learn how to use and configure commit conventions in the [Wiki](https://github.com/beatriznonato/rede-do-bem/wiki/📦-Commit-Message-Convention)
+
 ## Branch Protection 🛡
 
 The `main` branch is protected to ensure the integrity of the main codebase. This includes requiring pull requests and code reviews before merging.
@@ -149,3 +155,6 @@ The `main` branch is protected to ensure the integrity of the main codebase. Thi
 ## Fun Facts ⭐
 
 - This challenge was specifically developed for **Global Solution** as part of a guidance program by [FIAP](https://www.fiap.com.br) in partnership with [IBM](https://www.ibm.com/us-en), [Médicos Sem Fronteiras](https://doe.msf.org.br), [INPE](https://www.gov.br/inpe/pt-br), [Santo André | Defesa Civil](https://portais.santoandre.sp.gov.br/defesacivil/) and [Corpo de Bombeiros | São Paulo](https://www.corpodebombeiros.sp.gov.br/#/).
+  
+-  🏆 In **June 2025**, the project **Protech the Future** was awarded **Global Solution Champion**, recognizing its innovative approach to preventing extreme natural events through technology.
+
